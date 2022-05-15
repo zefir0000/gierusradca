@@ -115,11 +115,12 @@ a:visited {
 	-webkit-transition: all 0.3s ease-in-out;
 	-ms-transition: all 0.3s ease-in-out;
 	transition: all 0.3s ease-in-out;
+
 }
 
 a:hover,
 a:focus {
-	color: #000000;
+	color: rgba(0, 0, 0, 0.459);
 }
 
 /* ===================================================================
@@ -202,16 +203,16 @@ p.lead {
 em, i, strong, b {
 	font-size: 1.6rem;
 	line-height: 3rem;
-	font-style: normal;
-	font-weight: normal;
 }
 em, i {
-	font-family: "librebaskerville-italic", serif;
+	/* font-family: "librebaskerville-italic", serif; */
 }
 strong, b {
-	font-family: "librebaskerville-bold", serif;
+	/* font-family: "librebaskerville-bold", serif; */
 }
-
+.txt-bold {
+	color: #000;
+}
 small {
 	font-size: 1.1rem;
 	line-height: inherit;
@@ -2552,7 +2553,7 @@ header .header-logo a {
 }
 
 .bricks-wrapper .item-wrap .overlay::before {
-	content: "";
+	content: "qwe";
 	display: block;
 	background: rgba(0, 0, 0, 0.8);
 	opacity: 0;
@@ -2573,7 +2574,7 @@ header .header-logo a {
 .bricks-wrapper .item-wrap .overlay::after {
 	content: "";
 	font-family: sans-serif;
-	font-size: 2.4rem;
+	font-size: 2.2rem;
 	z-index: 1;
 	display: block;
 	height: 30px;
@@ -2582,8 +2583,8 @@ header .header-logo a {
 	margin-left: -15px;
 	margin-top: -15px;
 	position: absolute;
-	left: 50%;
-	top: 50%;
+	left: 0;
+	top: 10%;
 	text-align: center;
 	color: #FFFFFF;
 	opacity: 0;
@@ -2593,14 +2594,14 @@ header .header-logo a {
 	-webkit-transition: all 0.3s ease-in-out;
 	-ms-transition: all 0.3s ease-in-out;
 	transition: all 0.3s ease-in-out;
-	-webkit-transform: scale(0.5);
-	-ms-transform: scale(0.5);
-	transform: scale(0.5);
+	-webkit-transform: scale(0.4);
+	-ms-transform: scale(0.4);
+	transform: scale(0.4);
 }
 
 .bricks-wrapper .item-wrap .item-text {
 	position: absolute;
-	top: 0;
+	top: 0%;
 	left: 0;
 	padding: 3rem 0 0 3rem;
 	margin-right: 5rem;
@@ -2609,7 +2610,7 @@ header .header-logo a {
 
 .bricks-wrapper .item-wrap .item-text .folio-title {
 	color: #FFFFFF;
-	font-size: 2.2rem;
+	font-size: 1.8rem;
 	line-height: 1.364;
 	text-shadow: 2px 3px 3px #000;
 }
