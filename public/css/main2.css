@@ -1525,13 +1525,13 @@ header .header-logo a {
 }
 
 #menu-nav-wrap .nav-list li a {
-	color: rgba(255, 255, 255, 0.582);
+	color: rgb(255, 255, 255);
 	display: block;
 }
 
 #menu-nav-wrap .nav-list li a:hover,
 #menu-nav-wrap .nav-list li a:focus {
-	color: white;
+	color: rgba(255, 255, 255, 0.5);
 }
 
 #menu-nav-wrap .header-social-list {
@@ -2755,8 +2755,14 @@ header .header-logo a {
 		float: none;
 		width: 100%;
 	}
-
+	.blog-ol {
+		text-align: left
+	}
+	.blog-text {
+		text-align: left;
+	}
 }
+
 
 
 /* ===================================================================
