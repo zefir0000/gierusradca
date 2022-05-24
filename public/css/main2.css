@@ -203,6 +203,7 @@ p.lead {
 em, i, strong, b {
 	font-size: 1.4rem;
 	line-height: 3rem;
+	font-family: "montserrat-bold";
 }
 em, i {
 	/* font-family: "librebaskerville-italic", serif; */
