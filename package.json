@@ -1,7 +1,7 @@
 {
   "name": "gierusradca",
   "version": "1.0.0",
-  "description": "Kancelaria radcy prawnego Kamila Gierus",
+  "description": "Kancelaria radcy prawnego Kamila Gierus-Lenczner",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
