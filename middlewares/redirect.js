@@ -3,6 +3,7 @@ module.exports = function (req, res, next) {
   const host = req.headers.host
   const url = req.url
   const forceDomain = 'https://www.moto-trade.pl'
+  console.log(req)
 
   if ( host.match(/moto-trade/)) {
 
