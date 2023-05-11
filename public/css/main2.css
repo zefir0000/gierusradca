@@ -209,6 +209,7 @@ em, i {
 	/* font-family: "librebaskerville-italic", serif; */
 }
 strong, b {
+	color: #000;
 	/* font-family: "librebaskerville-bold", serif; */
 }
 .txt-bold {
