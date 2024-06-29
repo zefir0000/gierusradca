@@ -3097,17 +3097,7 @@ header .header-logo a {
 
 	position: relative;
 }
-#franki-bg {
-	padding-top: 10.2rem;
-	padding-bottom: 6rem;
-	background-image: url(../images/intro-bg-franki.jpg);
-	background-repeat: no-repeat;
-	opacity: 0.8;
-	background-position: right;
-	/* -webkit-background-size: cover; */
-	-moz-background-size: contain;
-	background-size: contain;
-}
+
 
 #franki .overlay {
 	position: absolute;
