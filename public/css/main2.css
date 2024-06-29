@@ -2309,7 +2309,7 @@ header .header-logo a {
 #credentials {
 	background: #FFFFFF;
 	position: relative;
-	padding: 0rem 0 9rem;
+	padding: 0rem 0 1rem;
 }
 .credentials-profile-bg {
 	position: absolute;
@@ -3083,6 +3083,123 @@ header .header-logo a {
 	color: #FFFFFF;
 }
 
+
+/* ===================================================================
+ *  15. franki - (_layout.scss)
+ *
+ * ------------------------------------------------------------------- */
+ #franki {
+	background-color:rgb(255, 255, 255);
+	padding-right: 25vh;
+
+	/* background-image: url(../images/profile-bg.jpg); */
+
+
+	position: relative;
+}
+#franki-bg {
+	padding-top: 10.2rem;
+	padding-bottom: 6rem;
+	background-image: url(../images/intro-bg-franki.jpg);
+	background-repeat: no-repeat;
+	opacity: 0.8;
+	background-position: right;
+	/* -webkit-background-size: cover; */
+	-moz-background-size: contain;
+	background-size: contain;
+}
+
+#franki .overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	/* opacity: .7; */
+	/* background-color: #000000; */
+}
+
+#franki .section-intro h2 {
+	color: #073674;
+}
+
+#franki .section-intro h3 {
+	color: #073674;
+}
+.franki-cloud {
+	text-align: center;
+	background-color: #073674d0;
+	color: #fff;
+	padding: 2rem;
+	min-width: 280px;
+	max-width: 450px;
+	border-radius: 16px;
+	/* margin-left:25%; */
+}
+
+/* contact form */
+.franki-bg-img {
+	max-width: 740px;
+	margin-top: 4.2rem;
+	position: relative;
+}
+
+.franki-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto;
+	height: 100vh;
+	background: radial-gradient(circle at 20% 60%, #0736747c 1%, white 20%);
+  position: relative;
+}
+.franki-title {
+	font-size: 5rem; text-align: center; margin-right: 25%;	font-family: librebaskerville-regular, serif; font-style: italic;
+}
+.franki-subtitle {
+	font-size: 2rem; text-align: left; margin-right: 27%;	font-family: librebaskerville-regular, serif; margin-top:15px;
+}
+.franki-text-content {
+  max-width: 600px;
+  padding: 20px;
+  z-index: 1;
+  text-align: center;
+}
+
+.franki-image-content {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 50%;
+	height: 100%;
+	opacity: 0.5;
+	background-image: url(../images/intro-bg-franki.jpg);
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+
+@media (max-width: 900px) {
+  .franki-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+	#franki {
+		padding-right: 0vh;
+	}
+	.franki-title {
+		margin-right: 0%;
+	}
+	.franki-subtitle {
+		 margin-right: 0%;
+	}
+
+  .franki-text-content {
+    max-width: 100%;
+    text-align: left;
+  }
+}
 /* ---------------------------------------------------------------
  * loader animation - (_layout.scss)
  * --------------------------------------------------------------- */
