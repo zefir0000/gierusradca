@@ -2500,10 +2500,15 @@ header .header-logo a {
 .blog-data {
 	color: #aaa8a8; font-size: 12px; float: right;
 }
-.blog-ol {
+#blog-page ul {
 	color: #484848; padding-left: 20px; text-align: justify; margin-top: -20px}
-.blog-ol li {
-	margin: 10px
+
+#blog-page ul li {
+	margin: 10px;
+	color: #484848;
+}
+#blog-page ol li {
+	color: #484848;
 }
 #blog-page {
 	background-color: rgba(255, 255, 255, 0.986);
@@ -2532,8 +2537,8 @@ header .header-logo a {
 #blog .bricks-wrapper .brick:nth-child(2n+1) {
 	clear: both;
 }
-
-.blog-text {
+#blog-page p {
+/* .blog-text { */
 	text-align: justify;
 	color: #484848;
 }
