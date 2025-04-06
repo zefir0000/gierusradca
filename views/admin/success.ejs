@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Przekierowywanie...</title>
+  <script>
+    // Automatyczne przekierowanie po załadowaniu strony
+    window.onload = function () {
+      const redirectUrl = "<%= redirectUrl %>";
+      if (redirectUrl) {
+        window.location.href = redirectUrl;
+      } else {
+        document.body.innerHTML = "<p>Brak adresu przekierowania.</p>";
+      }
+    };
+  </script>
+</head>
+<body>
+  <p>Trwa przekierowywanie...</p>
+</body>
+</html>

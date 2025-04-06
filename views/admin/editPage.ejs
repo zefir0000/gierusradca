@@ -10,17 +10,6 @@
   <title>
     <%= title %>
   </title>
-  <style>
-    body {
-      background-color: rgb(255, 253, 253) !important;
-    }
-    .active {
-      font-weight: bold;
-    }
-    .main-content {
-      margin: 10px;
-    }
-  </style>
 </head>
 
 <body>
@@ -30,7 +19,7 @@
       </h1>
 
       <form action="/admin/update-page" method="post" style="display: block; width: 90%" id="uploadForm" >
-        <label for="sectionSelect">Wybierz sekcję:</label>
+        <label for="sectionSelect">Wybierz sekcję:</label><%= section %>
         <select id="sectionSelect" name="section" value="<%= section %>" required>
           <option value="PRAWO BANKOWE" <%= section === 'PRAWO BANKOWE' ? 'selected' : '' %>>PRAWO BANKOWE</option>
           <option value="PRAWO RODZINNE" <%= section === 'PRAWO RODZINNE' ? 'selected' : '' %>>PRAWO RODZINNE</option>
@@ -40,14 +29,12 @@
           <option value="PRAWO ADMINISTRACYJNE" <%= section === 'PRAWO ADMINISTRACYJNE' ? 'selected' : '' %>>PRAWO ADMINISTRACYJNE</option>
           <option value="ODSZKODOWANIA" <%= section === 'ODSZKODOWANIA' ? 'selected' : '' %>>ODSZKODOWANIA</option>
           <option value="PRAWO HANDLOWE" <%= section === 'PRAWO HANDLOWE' ? 'selected' : '' %>>PRAWO HANDLOWE</option>
-
-        </select><br>
-        <label for="title">Tytuł strony:</label><br>
+        </select>
+        <label for="title">Tytuł strony:</label>
         <input type="text" id="title" name="title" value="<%= title %>" required style="width: 99%; padding: 10px 0px" />
-        <br><br>
 
-<br><br>
-  <input type="text" name="image" value="<%= image %>" >
+        <div style="text-align: center; margin: 20px; "> <img style="height: 200px;" src="../../images/<%= image %>"></div>
+        <input type="text" name="image" value="<%= image %>" >
 
         <label for="content">Treść strony:</label>
         <div id="editor">
@@ -57,7 +44,7 @@
         <textarea id="content" name="content" rows="10" required style="display: none;"></textarea>
 
         <br><br>
-        <button type="submit">Dodaj Stronę</button>
+        <button type="submit">Aktualizuj Stronę</button>
       </form>
     </div>
 </body>
@@ -65,27 +52,6 @@
 </html>
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 <script>
-//   document.getElementById("uploadForm").addEventListener("submit", async function (event) {
-//     event.preventDefault();
-
-//     const formData = new FormData(this);
-
-//     try {
-//         const response = await fetch("/admin/update-page", {
-//             method: "POST",
-//             body: formData
-//         });
-
-//         const result = await response.json();
-//         alert("Plik i dane zostały wysłane: " + JSON.stringify(result));
-//         if (result.redirectUrl) {
-//             window.location.href = result.redirectUrl;
-//         }
-//     } catch (error) {
-//         console.error("Błąd przesyłania:", error);
-//     }
-// });
-
   var quill = new Quill('#editor', {
     theme: 'snow'
   });
@@ -114,31 +80,39 @@
   textarea.value = quill.root.innerHTML;
 </script>
 <style>
+  body {
+    background-color: rgb(255, 253, 253) !important;
+  }
+  .active {
+    font-weight: bold;
+  }
+  .main-content {
+    margin: 10px;
+  }
   #editor {
     min-height: 400px;
   }
-
   #content {
     height: 400px;
     width: 100%;
   }
   #sectionSelect {
-  padding: 10px;
-  font-size: 16px;
-  width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #fff;
-}
+    padding: 10px;
+    font-size: 16px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+  }
 
-#sectionSelect option {
-  padding: 10px;
-  font-size: 16px;
-  background-color: #fff;
-  color: #333;
-}
-#sectionSelect option:hover {
-  background-color: #f5f5f5;
-  cursor: pointer;
-}
+  #sectionSelect option {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #fff;
+    color: #333;
+  }
+  #sectionSelect option:hover {
+    background-color: #f5f5f5;
+    cursor: pointer;
+  }
 </style>

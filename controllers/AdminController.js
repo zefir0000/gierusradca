@@ -39,8 +39,7 @@ exports.update = async (req, res) => {
       image: page.image,
   }));
     await saveTextFile(`common/blogList.txt`, JSON.stringify(updatedPages));
-
-    res.render('admin/manageBlog',  { data: updatedPages });
+    res.render('admin/success', { redirectUrl: '/admin/manage-blog' });
 };
 exports.addPage = async (req, res) => {
   const slug = createSlug(req.body.title)
@@ -64,6 +63,14 @@ exports.addPage = async (req, res) => {
     image: filePath,
   })
 }
+exports.uploadImage = async (req, res) => {
+  res.render('admin/addImage');
+
+}
+exports.addImage = async (req, res) => {
+  const filePath = req.file.path.replace('public', '')
+  res.json({ redirectUrl: filePath });
+}
 exports.updatePage = async (req, res) => {
   const slug = createSlug(req.body.title)
   const filePath = '/images/' + req.body.image;
@@ -75,22 +82,17 @@ exports.updatePage = async (req, res) => {
     .replace(/:filePathImage/mg, filePath);
 
   await saveTextFile(`views/blog/${slug}.ejs`, modHeader + req.body.content + footer);
-  const data = await fs.readFileSync('common/blogList.txt', { encoding: 'utf8' });
-  const blogList = JSON.parse(data);
-
-  blogList.push({
-    title: req.body.title,
-    section: req.body.section,
-    active: 'false',
-    slug: slug,
-    image: filePath,
-  })
-
-  const dataBlog = await fs.readFileSync('common/blogList.txt', { encoding: 'utf8' });
-  res.render('admin/manageBlog',  { data: JSON.parse(dataBlog)});
+  res.render('admin/success', { redirectUrl: '/admin/manage-blog' });
 }
 
 exports.addPage = async (req, res) => {
+  const today = new Date();
+
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, '0'); // miesiące od 0
+  const day = String(today.getDate()).padStart(2, '0');
+
+const formattedDate = `${day}.${month}.${year}`;
   const slug = createSlug(req.body.title)
   const filePath = req.file.path.replace('public', '')
   const modHeader = header
@@ -100,11 +102,11 @@ exports.addPage = async (req, res) => {
     .replace(/:pageCanonical/mg, slug)
     .replace(/:filePathImage/mg, filePath);
 
-  await saveTextFile(`views/blog/${slug}.ejs`, modHeader + req.body.content + footer);
+  await saveTextFile(`views/blog/${slug}.ejs`, modHeader + req.body.content + footer.replace(/:createdDate/mg, formattedDate));
   const data = await fs.readFileSync('common/blogList.txt', { encoding: 'utf8' });
   const blogList = JSON.parse(data);
 
-  blogList.push({
+  blogList.unshift({
       title: req.body.title,
       section: req.body.section,
       active: 'false',
@@ -156,7 +158,12 @@ const header = `<!DOCTYPE html>
           <div style="text-align: center; margin: 20px; ">
             <img src="..:filePathImage" alt=":pageCanonical">
           </div><div style="padding-bottom:3rem">`;
-const footer = ` </div></section>
+const footer = `
+<span>
+<span class="blog-data">opublikowano: :createdDate r.</span>
+</span>
+<br>
+</div></section>
 <%- include('../../views/components/blogList.ejs'); -%>
   <%- include('../../views/components/contact.ejs'); -%>
     <%- include('../../views/components/dependency.ejs'); -%>

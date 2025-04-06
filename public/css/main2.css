@@ -2620,6 +2620,8 @@ header .header-logo a {
 	font-size: 1.8rem;
 	line-height: 1.364;
 	text-shadow: 2px 3px 3px #000;
+	text-transform: uppercase;
+
 }
 
 .bricks-wrapper .item-wrap .item-text .folio-types {
