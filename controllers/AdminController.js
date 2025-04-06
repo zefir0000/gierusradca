@@ -101,8 +101,8 @@ const formattedDate = `${day}.${month}.${year}`;
 
     .replace(/:pageCanonical/mg, slug)
     .replace(/:filePathImage/mg, filePath);
-
-  await saveTextFile(`views/blog/${slug}.ejs`, modHeader + req.body.content + footer.replace(/:createdDate/mg, formattedDate));
+  const publicDate = `<span class="blog-data">opublikowano: ${formattedDate} r.</span><br>`
+  await saveTextFile(`views/blog/${slug}.ejs`, modHeader + req.body.content + publicDate + footer);
   const data = await fs.readFileSync('common/blogList.txt', { encoding: 'utf8' });
   const blogList = JSON.parse(data);
 
@@ -159,10 +159,6 @@ const header = `<!DOCTYPE html>
             <img src="..:filePathImage" alt=":pageCanonical">
           </div><div style="padding-bottom:3rem">`;
 const footer = `
-<span>
-<span class="blog-data">opublikowano: :createdDate r.</span>
-</span>
-<br>
 </div></section>
 <%- include('../../views/components/blogList.ejs'); -%>
   <%- include('../../views/components/contact.ejs'); -%>
