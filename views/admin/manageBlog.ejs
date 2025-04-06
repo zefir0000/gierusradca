@@ -11,7 +11,9 @@
   <h1>Zarządzanie stronami</h1>
 
   <!-- Formularz do dodawania nowych pozycji -->
-  <a href="/admin/new-page">Dodaj strone</a>
+
+  <button ><a href="/admin/new-page">Dodaj strone</a></button>
+  <button ><a href="/admin/add-image">Dodaj obrazek</a></button>
 
 
   <!-- Lista istniejących pozycji -->
@@ -62,7 +64,19 @@
 </html>
 <style>
   /* Ogólny styl dla całej strony */
-
+button {
+  padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+button a {
+  color: #fff;
+  text-decoration: none;
+}
   /* Dodanie klasy dla całej sekcji zarządzania stronami */
   .manage-pages {
     font-family: Arial, sans-serif;

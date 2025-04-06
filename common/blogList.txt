@@ -1,5 +1,12 @@
 [
   {
+    "title": "Odszkodowanie z OC sprawcy – jak dochodzić swoich praw?",
+    "section": "ODSZKODOWANIA",
+    "active": true,
+    "slug": "odszkodowanie-z-oc-sprawcy--jak-dochodzi-swoich-praw",
+    "image": "/images/1743841647648.jpeg"
+  },
+  {
     "title": "OBNIŻENIE ALIMENTÓW - KIEDY JEST MOŻLIWE I JAK SIĘ O NIE UBIEGAĆ?",
     "section": "PRAWO RODZINNE",
     "active": true,
