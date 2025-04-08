@@ -5284,6 +5284,7 @@ var Link = function (_Inline) {
       if (name !== this.statics.blotName || !value) return _get(Link.prototype.__proto__ || Object.getPrototypeOf(Link.prototype), 'format', this).call(this, name, value);
       value = this.constructor.sanitize(value);
       this.domNode.setAttribute('href', value);
+
     }
   }], [{
     key: 'create',
@@ -5291,6 +5292,8 @@ var Link = function (_Inline) {
       var node = _get(Link.__proto__ || Object.getPrototypeOf(Link), 'create', this).call(this, value);
       value = this.sanitize(value);
       node.setAttribute('href', value);
+      node.setAttribute('class', 'smoothscroll');
+
       return node;
     }
   }, {
