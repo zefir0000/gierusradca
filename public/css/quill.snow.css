@@ -373,6 +373,10 @@
 .ql-editor .ql-size-huge {
   font-size: 2.5em;
 }
+.ql-editor .ql-size-date {
+  font-size: 1em;
+  background-color: #93f;
+}
 .ql-editor .ql-direction-rtl {
   direction: rtl;
   text-align: inherit;
@@ -830,6 +834,10 @@
 .ql-snow .ql-picker.ql-size .ql-picker-item[data-value=huge]::before {
   content: 'Huge';
 }
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value=date]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value=date]::before {
+  content: 'Date';
+}
 .ql-snow .ql-picker.ql-size .ql-picker-item[data-value=small]::before {
   font-size: 10px;
 }
@@ -838,6 +846,9 @@
 }
 .ql-snow .ql-picker.ql-size .ql-picker-item[data-value=huge]::before {
   font-size: 32px;
+}
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value=date]::before {
+  font-size: 12px;
 }
 .ql-snow .ql-color-picker.ql-background .ql-picker-item {
   background-color: #fff;

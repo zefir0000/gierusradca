@@ -17,7 +17,11 @@
       <h1>
         <%= title %>
       </h1>
-
+      <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" id="fileInput" name="image" accept="image/*">
+        <br>
+        <button type="submit">Upload Image</button>
+      </form>
       <form action="/admin/update-page" method="post" style="display: block; width: 90%" id="uploadForm" >
         <label for="sectionSelect">Wybierz sekcję:</label><%= section %>
         <select id="sectionSelect" name="section" value="<%= section %>" required>
@@ -34,7 +38,8 @@
         <input type="text" id="title" name="title" value="<%= title %>" required style="width: 99%; padding: 10px 0px" />
 
         <div style="text-align: center; margin: 20px; "> <img style="height: 200px;" src="../../images/<%= image %>"></div>
-        <input type="text" name="image" value="<%= image %>" >
+        <label>Grafika: </label>
+        <input style="width: 99%; padding: 10px 0px"  type="text" name="image" value="<%= image %>" id="imagePath">
 
         <label for="content">Treść strony:</label>
         <div id="editor">
@@ -51,10 +56,10 @@
 
 </html>
 <script src="/js/quill.js"></script>
+<script src="/js/quill-config.js"></script>
+
 <script>
-  var quill = new Quill('#editor', {
-    theme: 'snow'
-  });
+  var quill = new Quill('#editor', );
   const contentFromServer = `<%- content %>`; // unescaped HTML
 
   quill.clipboard.dangerouslyPasteHTML(contentFromServer);
@@ -78,7 +83,23 @@
   });
 
   textarea.value = quill.root.innerHTML;
+  document.getElementById("uploadForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+
+    const response = await fetch("/admin/page/image", {
+      method: "POST",
+      body: formData
+    });
+
+    const data = await response.json();
+
+    // Uzupełniamy pole tekstowe
+    document.getElementById("imagePath").value = data.filename;
+  });
 </script>
+
 <style>
   body {
     background-color: rgb(255, 253, 253) !important;

@@ -1,5 +1,5 @@
 const fs = require("fs");
-
+const helper = require("../services/helper")
 exports.newPage = async (req, res) => {
   res.render('admin/addPage', { title: 'Nowa strona' });
 };
@@ -30,19 +30,19 @@ exports.manageBlog = async (req, res) => {
 };
 exports.update = async (req, res) => {
   let updatedPages = req.body.pages || [];
-
     updatedPages = Object.values(updatedPages).map(page => ({
       title: page.title,
       section: page.section,
       active: page.active === 'true',
       slug: page.slug,
       image: page.image,
+      publishDate: page.publishDate
   }));
-    await saveTextFile(`common/blogList.txt`, JSON.stringify(updatedPages));
+    await helper.saveTextFile(`common/blogList.txt`, JSON.stringify(updatedPages));
     res.render('admin/success', { redirectUrl: '/admin/manage-blog' });
 };
 exports.addPage = async (req, res) => {
-  const slug = createSlug(req.body.title)
+  const slug = helper.createSlug(req.body.title)
   const filePath = req.file.path.replace('public', '')
   const modHeader = header
     .replace(/:pageTitle/mg, req.body.title)
@@ -51,7 +51,7 @@ exports.addPage = async (req, res) => {
     .replace(/:pageCanonical/mg, slug)
     .replace(/:filePathImage/mg, filePath);
 
-  await saveTextFile(`views/blog/${slug}.ejs`, modHeader + req.body.content + footer);
+  await helper.saveTextFile(`views/blog/${slug}.ejs`, modHeader + req.body.content + footer);
   const data = await fs.readFileSync('common/blogList.txt', { encoding: 'utf8' });
   const blogList = JSON.parse(data);
 
@@ -72,7 +72,7 @@ exports.addImage = async (req, res) => {
   res.json({ redirectUrl: filePath });
 }
 exports.updatePage = async (req, res) => {
-  const slug = createSlug(req.body.title)
+  const slug = helper.createSlug(req.body.title)
   const filePath = '/images/' + req.body.image;
   const modHeader = header
     .replace(/:pageTitle/mg, req.body.title)
@@ -81,7 +81,14 @@ exports.updatePage = async (req, res) => {
     .replace(/:pageCanonical/mg, slug)
     .replace(/:filePathImage/mg, filePath);
 
-  await saveTextFile(`views/blog/${slug}.ejs`, modHeader + req.body.content + footer);
+    const data = await fs.readFileSync('common/blogList.txt', { encoding: 'utf8' });
+
+    const blogList = JSON.parse(data);
+    const existing = blogList.find(post => post.slug === slug);
+    existing.image = filePath;
+
+    await helper.saveTextFile(`common/blogList.txt`, JSON.stringify(blogList));
+  await helper.saveTextFile(`views/blog/${slug}.ejs`, modHeader + req.body.content + footer);
   res.render('admin/success', { redirectUrl: '/admin/manage-blog' });
 }
 
@@ -93,7 +100,7 @@ exports.addPage = async (req, res) => {
   const day = String(today.getDate()).padStart(2, '0');
 
 const formattedDate = `${day}.${month}.${year}`;
-  const slug = createSlug(req.body.title)
+  const slug = helper.createSlug(req.body.title)
   const filePath = req.file.path.replace('public', '')
   const modHeader = header
     .replace(/:pageTitle/mg, req.body.title)
@@ -102,7 +109,7 @@ const formattedDate = `${day}.${month}.${year}`;
     .replace(/:pageCanonical/mg, slug)
     .replace(/:filePathImage/mg, filePath);
   const publicDate = `<span class="blog-data">opublikowano: ${formattedDate} r.</span><br>`
-  await saveTextFile(`views/blog/${slug}.ejs`, modHeader + req.body.content + publicDate + footer);
+  await helper.saveTextFile(`views/blog/${slug}.ejs`, modHeader + req.body.content + publicDate + footer);
   const data = await fs.readFileSync('common/blogList.txt', { encoding: 'utf8' });
   const blogList = JSON.parse(data);
 
@@ -114,23 +121,11 @@ const formattedDate = `${day}.${month}.${year}`;
       image: filePath,
   })
 
-  await saveTextFile(`common/blogList.txt`, JSON.stringify(blogList));
+  await helper.saveTextFile(`common/blogList.txt`, JSON.stringify(blogList));
 
   res.json({ redirectUrl: `/blog/${slug}` })
 };
 
-function createSlug(title) {
-  return title
-      .toLowerCase()
-      .trim()
-      .replace(/\s+/g, "-")
-      .replace(/[^\w\-]+/g, "");
-}
-
-function saveTextFile(filename, content) {
-    fs.writeFileSync(filename, content, "utf8");
-    console.log(`Plik ${filename} zapisany.`);
-}
 const header = `<!DOCTYPE html>
 <!--[if IE 8 ]><html class="no-js oldie ie8" lang="pl"> <![endif]-->
 <!--[if IE 9 ]><html class="no-js oldie ie9" lang="pl"> <![endif]-->

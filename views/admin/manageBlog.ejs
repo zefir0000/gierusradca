@@ -23,7 +23,8 @@
       <tr>
         <th>Tytuł</th>
         <th>Sekcja</th>
-        <th>Aktywna</th>
+        <th>Widoczne </th>
+        <th>Data publikacji </th>
       </tr>
       <% data.forEach((item, index) => { %>
         <tr>
@@ -43,12 +44,19 @@
               <option value="PRAWO HANDLOWE" <%= item.section === 'PRAWO HANDLOWE' ? 'selected' : '' %>>PRAWO HANDLOWE</option>
 
             </select><br>
-            <td><input type="text" name="pages[<%= index %>][image]" value="<%= item.image %>" required></td>
-          </td>
+
             <td> <input type="checkbox" style="width: 100%" name="pages[<%= index %>][active]" value="true" <%= item.active ? 'checked' : '' %>>
             </td>
 
-
+            <td>
+              <input
+                type="date"
+                name="pages[<%= index %>][publishDate]"
+                value="<%= item.publishDate || '' %>"
+                class="datepicker"
+              />
+            </td>
+            <input type="hidden" name="pages[<%= index %>][image]" value="<%= item.image %>" required></td>
             <td> <input type="hidden" name="pages[<%= index %>][slug]" value="<%= item.slug %>">
             </td>
             <td> <button><a href="/admin/edit-page/<%= item.slug %>">edit</a></button>

@@ -61,6 +61,8 @@
 
 </html>
 <script src="/js/quill.js"></script>
+<script src="/js/quill-config.js"></script>
+
 <script>
   document.getElementById("uploadForm").addEventListener("submit", async function (event) {
     event.preventDefault();
@@ -83,9 +85,7 @@
     }
 });
 
-  var quill = new Quill('#editor', {
-    theme: 'snow'
-  });
+  var quill = new Quill('#editor');
 
   var toggleButton = document.getElementById('toggleTextarea');
   var textarea = document.getElementById('content');

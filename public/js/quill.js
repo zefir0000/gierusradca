@@ -6365,11 +6365,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var SizeClass = new _parchment2.default.Attributor.Class('size', 'ql-size', {
   scope: _parchment2.default.Scope.INLINE,
-  whitelist: ['small', 'large', 'huge']
+  whitelist: ['date', 'small', 'large', 'huge']
 });
 var SizeStyle = new _parchment2.default.Attributor.Style('size', 'font-size', {
   scope: _parchment2.default.Scope.INLINE,
-  whitelist: ['10px', '18px', '32px']
+  whitelist: ['10px', '18px', '32px', '12px']
 });
 
 exports.SizeClass = SizeClass;
@@ -6666,9 +6666,9 @@ var COLORS = ["#000000", "#e60000", "#ff9900", "#ffff00", "#008a00", "#0066cc", 
 
 var FONTS = [false, 'serif', 'monospace'];
 
-var HEADERS = ['1', '2', '3', false];
+var HEADERS = ['1', '2', '3', '4', false];
 
-var SIZES = ['small', false, 'large', 'huge'];
+var SIZES = ['date', 'small', false, 'large', 'huge'];
 
 var BaseTheme = function (_Theme) {
   _inherits(BaseTheme, _Theme);
