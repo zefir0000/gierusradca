@@ -39,42 +39,42 @@
     "section": "PRAWO BANKOWE",
     "active": true,
     "slug": "sprawa-frankowa",
-    "image": "/images/franki.jpg"
+    "image": "/images/jak-przebiega-rozprawa-w-sprawie-frankowej.jpg"
   },
   {
     "title": "WYMELDOWANIE BEZ ZGODY OSOBY ZAMELDOWANEJ – KIEDY JEST MOŻLIWE?",
     "section": "PRAWO ADMINISTRACYJNE",
     "active": true,
     "slug": "wymeldowanie-lokatora",
-    "image": "/images/wymeldowanie.jpg"
+    "image": "/images/wymeldowanie-bez-zgody.jpg"
   },
   {
     "title": "DODATKOWE DNI URLOPU OD PRACY Z POWODU SIŁY WYŻSZEJ",
     "section": "PRAWO PRACY",
     "active": true,
     "slug": "dodatkowe-dni-urlopu",
-    "image": "/images/dni-wolne.jpg"
+    "image": "/images/dodatkowe-dni-wolne-od-pracy.jpg"
   },
   {
     "title": "ILE KOSZTUJE ROZWÓD A ILE SEPARACJA?",
     "section": "PRAWO RODZINNE",
     "active": true,
     "slug": "ile-kosztuje-rozwod",
-    "image": "/images/money.jpg"
+    "image": "/images/ile-kosztuje-rozwod-a-ile-separacja.jpg"
   },
   {
     "title": "KONTROLATRZEŹWOŚCI W PRACY – CO WARTO WIEDZIEĆ",
     "section": "PRAWO PRACY",
     "active": true,
     "slug": "kontrola-trzezwosci-w-pracy",
-    "image": "/images/picie-w-pracy.jpg"
+    "image": "/images/kontrola-trzezwosci.jpg"
   },
   {
     "title": "STWIERDZENIA NABYCIA SPADKU PRZEZ SĄD – CO WARTO WIEDZIEĆ",
     "section": "PRAWO SPADKOWE",
     "active": true,
     "slug": "stwierdzenie-nabycia-spadku",
-    "image": "/images/zgon.jpg"
+    "image": "/images/stwierdzenie-nabycia-spadku.jpg"
   },
   {
     "title": "NAZWISKO MAŁŻONKÓW PO ŚLUBIE – JAKIE MOŻNA WYBRAĆ? JAKIE DOKUMANTY WYMIENIĆ? JAKIE NAZWISKO BĘDĄ NOSIĆ DZIECI?",
@@ -88,14 +88,14 @@
     "section": "PRAWO RODZINNE",
     "active": true,
     "slug": "zmina-nazwiska-po-rozwodzie",
-    "image": "/images/zmina-nazwiska-po-rozwodzie.jpg"
+    "image": "/images/zmiana-nazwiska.jpg"
   },
   {
     "title": "UZNANIE W POLSCE WYROKU ROZWODOWEGO WYDANEGO PRZEZ SĄD ZAGRANICZNY",
     "section": "PRAWO PRACY",
     "active": true,
     "slug": "uznanie-zagranicznego-rozwodu",
-    "image": "/images/uznanie-zagranicznego-rozwodu.jpg"
+    "image": "/images/uznanie-w-polsce-wyroku-rozwodowego.jpg"
   },
   {
     "title": "ODRZUCENIE SPADKU W IMIENIU DZIECKA – KROK PO KROKU",
@@ -109,7 +109,7 @@
     "section": "PRAWO CYWILNE",
     "active": true,
     "slug": "znecanie-sie-nad-zwierzetami",
-    "image": "/images/znecanie-sie-nad-zwierzetami.jpg"
+    "image": "/images/znecanie-sie-nad-zwierzetami-czyli-co.jpg"
   },
   {
     "title": "SPRZECZNOŚĆ ROZWODU Z DOBREM MAŁOLETNICH DZIECI MAŁŻONKÓW, CZYLI KIEDY SĄD NIE ORZEKNIE ROZWODU",
@@ -123,14 +123,14 @@
     "section": "PRAWO PRACY",
     "active": true,
     "slug": "pracodawca-zada-zwrotu-kosztow",
-    "image": "/images/pracodawca-zada-zwrot-kosztow.jpg"
+    "image": "/images/czy-pracodawca-moze-zadac-zwrotu-koszow-szkolen.jpg"
   },
   {
     "title": "ROZWÓD - KIEDY SĄD MOŻE GO ORZEC",
     "section": "PRAWO RODZINNE",
     "active": true,
     "slug": "rozwod",
-    "image": "/images/rozwod.jpg"
+    "image": "/images/rozwod-kiedy-sad-moze-go-orzec.jpg"
   },
   {
     "title": "ODPOWIEDZIALNOŚĆ ZA SZKODY WYRZĄDZONE PRZEZ ZWIERZĘ",
