@@ -19,7 +19,7 @@ exports.editPage = async (req, res) => {
   const endIndex = data.indexOf(endTag);
   const content = startTag !== -1 && endIndex !== -1 ? data.slice(startIndex + startTag.length, endIndex) : data;
 
-  res.render('admin/editPage', { title, section, image, content });
+  res.render('admin/editPage', { title, section, image, content, slug });
 };
 
 exports.manageBlog = async (req, res) => {
@@ -72,7 +72,7 @@ exports.addImage = async (req, res) => {
   res.json({ redirectUrl: filePath });
 }
 exports.updatePage = async (req, res) => {
-  const slug = helper.createSlug(req.body.title)
+  const slug = req.body.slug;
   const filePath = '/images/' + req.body.image;
   const modHeader = header
     .replace(/:pageTitle/mg, req.body.title)
