@@ -6,7 +6,7 @@ exports.newPage = async (req, res) => {
 
 exports.editPage = async (req, res) => {
   const startTag = '<div style="padding-bottom:3rem">';
-  const endTag = '</div></section>';
+  const endTag = '<span class="blog-data">';
 
   const slug = req.params.slug;
 
@@ -93,13 +93,7 @@ exports.updatePage = async (req, res) => {
 }
 
 exports.addPage = async (req, res) => {
-  const today = new Date();
 
-  const year = today.getFullYear();
-  const month = String(today.getMonth() + 1).padStart(2, '0'); // miesiące od 0
-  const day = String(today.getDate()).padStart(2, '0');
-
-const formattedDate = `${day}.${month}.${year}`;
   const slug = helper.createSlug(req.body.title)
   const filePath = req.file.path.replace('public', '')
   const modHeader = header
@@ -108,10 +102,11 @@ const formattedDate = `${day}.${month}.${year}`;
 
     .replace(/:pageCanonical/mg, slug)
     .replace(/:filePathImage/mg, filePath);
-  const publicDate = `<span class="blog-data">opublikowano: ${formattedDate} r.</span><br>`
+  const publicDate = ``
   await helper.saveTextFile(`views/blog/${slug}.ejs`, modHeader + req.body.content + publicDate + footer);
   const data = await fs.readFileSync('common/blogList.txt', { encoding: 'utf8' });
   const blogList = JSON.parse(data);
+
 
   blogList.unshift({
       title: req.body.title,
@@ -154,6 +149,7 @@ const header = `<!DOCTYPE html>
             <img src="..:filePathImage" alt=":pageCanonical">
           </div><div style="padding-bottom:3rem">`;
 const footer = `
+<span class="blog-data">opublikowano: <%= post.publishDate %>r.</span><br>
 </div></section>
 <%- include('../../views/components/blogList.ejs'); -%>
   <%- include('../../views/components/contact.ejs'); -%>

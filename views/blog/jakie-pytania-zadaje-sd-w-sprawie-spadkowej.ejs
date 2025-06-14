@@ -24,10 +24,34 @@
           <h4 style="color: rgba(0,0,0, 0.658);">PRAWO SPADKOWE</h4>
           <div style="text-align: center; margin: 20px; ">
             <img src="../images/jakie_oytania_zadaje_Sad.jpg" alt="jakie-pytania-zadaje-sd-w-sprawie-spadkowej">
-          </div><div style="padding-bottom:3rem"><p>Rozprawa spadkowa to zwykle formalność, która ma na celu ustalenie, kto dziedziczy po zmarłym. Choć może się wydawać stresująca, pytania mają jedynie pomóc sądowi wydać sprawiedliwe postanowienie.</p><h2>Najczęstsze pytania zadawane przez sąd:</h2><ol><li><strong>Jakie relacje łączą Pana/Panią ze zmarłym?</strong> – chodzi o potwierdzenie pokrewieństwa lub powinowactwa.</li><li><strong>Czy zmarły zostawił testament?</strong> – sąd musi ustalić, czy dziedziczenie odbywa się na podstawie ustawy czy testamentu.</li><li><strong>Czy znane są inne osoby mogące rościć sobie prawa do spadku?</strong> – mogą to być dzieci zmarłego z innych związków, rodzeństwo, rodzice itp.</li><li><strong>Czy ktoś z uczestników zrzekł się dziedziczenia lub odrzucił spadek?</strong> – ma to wpływ na skład spadkobierców.</li><li><strong>Czy toczą się inne postępowania dotyczące tego spadku?</strong> – np. sprawy o zachowek, podważenie testamentu, dział spadku.</li><li><strong>Czy są między stronami jakieś spory lub nieporozumienia?</strong> – sąd musi wiedzieć, czy sprawa jest sporna, czy nie.</li></ol><p><em>Przykład: Pani Maria zmarła, zostawiając testament. Na rozprawie pojawiła się jej córka, która oświadczyła, że istnieje przyrodni brat mieszkający w Anglii. Sąd zawiesił postępowanie i zobowiązał stronę do wskazania jego adresu, by mógł zostać wezwany do udziału w sprawie.</em></p><p>Masz wątpliwości?<em> </em><a href="/#contact" class="smoothscroll">Skontaktuj się z Kancelarią.</a></p><p><br></p><span class="blog-data">opublikowano: 07.05.2025 r.</span><br>
-</div></section>
-<%- include('../../views/components/blogList.ejs'); -%>
-  <%- include('../../views/components/contact.ejs'); -%>
-    <%- include('../../views/components/dependency.ejs'); -%>
-</body>
+          </div>
+          <div style="padding-bottom:3rem">
+            <p>Rozprawa spadkowa to zwykle formalność, która ma na celu ustalenie, kto dziedziczy po zmarłym. Choć może się
+              wydawać stresująca, pytania mają jedynie pomóc sądowi wydać sprawiedliwe postanowienie.</p>
+            <h2>Najczęstsze pytania zadawane przez sąd:</h2>
+            <ol>
+              <li><strong>Jakie relacje łączą Pana/Panią ze zmarłym?</strong> – chodzi o potwierdzenie pokrewieństwa lub powinowactwa.</li>
+              <li><strong>Czy zmarły zostawił testament?</strong> – sąd musi ustalić, czy dziedziczenie odbywa się na podstawie
+                ustawy czy testamentu.</li>
+              <li><strong>Czy znane są inne osoby mogące rościć sobie prawa do spadku?</strong> – mogą to być dzieci zmarłego
+                z innych związków, rodzeństwo, rodzice itp.</li>
+              <li><strong>Czy ktoś z uczestników zrzekł się dziedziczenia lub odrzucił spadek?</strong> – ma to wpływ na skład
+                spadkobierców.</li>
+              <li><strong>Czy toczą się inne postępowania dotyczące tego spadku?</strong> – np. sprawy o zachowek, podważenie
+                testamentu, dział spadku.</li>
+              <li><strong>Czy są między stronami jakieś spory lub nieporozumienia?</strong> – sąd musi wiedzieć, czy sprawa jest
+                sporna, czy nie.</li>
+            </ol>
+            <p><em>Przykład: Pani Maria zmarła, zostawiając testament. Na rozprawie pojawiła się jej córka, która oświadczyła,
+                że istnieje przyrodni brat mieszkający w Anglii. Sąd zawiesił postępowanie i zobowiązał stronę do wskazania
+                jego adresu, by mógł zostać wezwany do udziału w sprawie.</em></p>
+            <p>Masz wątpliwości?<em> </em><a href="/#contact" class="smoothscroll">Skontaktuj się z Kancelarią.</a></p>
+            <span class="blog-data">opublikowano: <%= post.publishDate %>r.</span>
+            <br>          </div>
+      </section>
+      <%- include('../../views/components/blogList.ejs'); -%>
+        <%- include('../../views/components/contact.ejs'); -%>
+          <%- include('../../views/components/dependency.ejs'); -%>
+  </body>
+
 </html>

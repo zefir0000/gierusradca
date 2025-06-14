@@ -1,0 +1,178 @@
+<section id="newslater">
+    <form id="newsletterForm" class="newsletter-form">
+        <h2>Zapisz się do newslettera</h2>
+        <p class="description">
+          Otrzymuj informacje o nowych wpisach i najważniejszych aktualizacjach. Nic ważnego Cię nie ominie!
+        </p>
+
+        <input type="email" id="email" name="email" placeholder="Twój e-mail" required />
+
+        <div class="checkbox-group">
+          <input type="checkbox" id="consent" name="consent" required />
+          <label for="consent">
+            Wyrażam zgodę na otrzymywanie informacji marketingowych drogą elektroniczną zgodnie z
+            <a href="/policy" target="_blank">Polityką Prywatności</a>.
+          </label>
+        </div>
+
+        <button type="submit">Zapisz się</button>
+      </form>
+
+<dialog id="newsletterDialog">
+    <p id="dialogMessage">Dziękujemy za zapis!</p>
+    <button onclick="document.getElementById('newsletterDialog').close()">Zamknij</button>
+  </dialog>
+</section>
+
+<script>
+    document.getElementById('newsletterForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value;
+      const consent = document.getElementById('consent').checked;
+
+      const formData = new URLSearchParams();
+      formData.append('email', email);
+      formData.append('consent', consent ? 'on' : '');
+
+      try {
+        const res = await fetch('/newsletter/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: formData.toString()
+        });
+
+        const dialog = document.getElementById('newsletterDialog');
+        const msg = document.getElementById('dialogMessage');
+
+        if (res.ok) {
+          msg.textContent = 'Dziękujemy za zapis! Sprawdź swoją skrzynkę, aby potwierdzić subskrypcję.';
+          document.getElementById('newsletterForm').reset();
+        } else {
+          msg.textContent = 'Coś poszło nie tak. Spróbuj ponownie.';
+        }
+
+        dialog.showModal();
+      } catch (err) {
+        console.error('Błąd:', err);
+        const dialog = document.getElementById('newsletterDialog');
+        const msg = document.getElementById('dialogMessage');
+        msg.textContent = 'Wystąpił błąd połączenia. Spróbuj ponownie później.';
+        dialog.showModal();
+      }
+    });
+  </script>
+<style>
+  #newslater {
+    background-color:rgb(1, 20, 54);
+  }
+  .newsletter-form {
+    background-color: #f9f9f9;
+    padding: 2rem;
+    border-radius: 1rem;
+    margin: 2rem 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .newsletter-form h2 {
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+
+  .newsletter-form .description {
+    font-size: 1,.5rem;
+    color: #555;
+    text-align: center;
+  }
+
+  .newsletter-form input[type="email"] {
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .newsletter-form .checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  .newsletter-form .checkbox-group input[type="checkbox"] {
+    margin-top: 0.2rem;
+  }
+
+  .newsletter-form a {
+    color: #007bff;
+    text-decoration: underline;
+  }
+
+  .newsletter-form button {
+    padding: 0.75rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    font-size: 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  .newsletter-form button:hover {
+    background-color: #0056b3;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+    padding: 0;
+  }
+
+  @media (max-width: 600px) {
+    .newsletter-form {
+      padding: 1.5rem;
+    }
+
+    .newsletter-form h2 {
+      font-size: 1.25rem;
+    }
+
+    .newsletter-form button {
+      font-size: 0.95rem;
+    }
+  }
+  /* Dialog styl */
+  dialog {
+    border: none;
+    padding: 2rem;
+    border-radius: 1rem;
+    max-width: 90%;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    font-family: 'Segoe UI', sans-serif;
+    text-align: center;
+  }
+
+  dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  dialog button {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+  }
+</style>
