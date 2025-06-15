@@ -61,6 +61,7 @@ exports.addPage = async (req, res) => {
     active: 'false',
     slug: slug,
     image: filePath,
+    publishDate: '2125-01-01'
   })
 }
 exports.uploadImage = async (req, res) => {
