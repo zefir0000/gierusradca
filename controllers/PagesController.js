@@ -20,7 +20,11 @@ exports.blog = async (req, res) => {
   const blogList = JSON.parse(data).filter(x => x.active).filter(d => new Date(d.publishDate) < new Date());
   console.log(req.params)
   const post = blogList.find(post => post.slug === req.params.slug);
-  post.publishDate = helper.formatDate(post.publishDate || '2025-06-16');
+  if (post) {
+    post.publishDate = helper.formatDate(post.publishDate);
+  } else {
+    post.publishDate = ''
+  }
   res.render('blog/'+req.params.slug.replace('.html', ''), { blogList, post });
 };
 
