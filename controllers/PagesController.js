@@ -6,7 +6,6 @@ const blogListFILE = 'common/blogList.txt';
 
 exports.home = async (req, res) => {
   const data = await fs.readFileSync(blogListFILE, { encoding: 'utf8' });
-  console.log()
   const blogList = JSON.parse(data).filter(x => x.active).filter(d => new Date(d.publishDate) < new Date());
 
   res.render('index', { blogList});
@@ -33,9 +32,7 @@ exports.confirmMail = async (req, res) => {
 };
 
 exports.unsubscribe = async (req, res) => {
-  console.log(req.query)
   const confirm = await helper.verifyConfirmationToken(req.query.tid)
-  console.log(confirm)
   const unsubscribe = confirm ? await helper.unsubscribe(confirm.email) : null
 
   res.render('unsubscribe');

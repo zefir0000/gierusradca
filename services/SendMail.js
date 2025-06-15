@@ -1,16 +1,15 @@
 var nodemailer = require('nodemailer');
 const helper = require('./helper')
-// const { watched } = require('../common/mailTemplate')
-const EMAIL = 'biuro@moto-trade.pl'
-const HOST = 'http://localhost:8333'
+const EMAIL = process.env.MAIL
+const HOST = process.env.HOST
 var transporter = nodemailer.createTransport({
-  host: 'ssl0.ovh.net',
+  host: 'smtp.gmail.com',
   port: 465,
 
   secure: true,
   auth: {
     user: EMAIL,
-    pass: 'KnybsAct0j@'
+    pass: process.env.MAIL_PASS
   }
 });
 
@@ -22,7 +21,7 @@ exports.sendCustomMail = async (title, message, email) => {
     html: message
   };
 
-  transporter.sendMail(mailOptions, (error, info) => { console.log(error, info) });
+  transporter.sendMail(mailOptions, (error, info) =>  { console.log(error, info.envelope.to, 'notifier') });
   return
 }
 
@@ -35,12 +34,12 @@ exports.sendConfirmMail = async (email, data) => {
     html: confirmMail.replace(/{{CONFIRMATION_URL}}/, HOST +'/confirm-mail?tid=' + signature)
   };
 
-  transporter.sendMail(mailOptions, (error, info) => { console.log(error, info, 'notifier') });
+  transporter.sendMail(mailOptions, (error, info) => { console.log(error, info.envelope.to, 'notifier') });
   return
 }
 exports.sendNewsMail = async (email, data) => {
   const signature = await helper.generateConfirmationToken(email)
-
+console.log(data.blog.image)
   let mailOptions = {
     from: EMAIL,
     to: email,
@@ -49,11 +48,18 @@ exports.sendNewsMail = async (email, data) => {
       .replace(/{{title}}/, data.blog.title)
       .replace(/{{link}}/, HOST +'/blog/' + data.blog.slug)
       .replace(/{{link}}/, HOST + '/blog/' + data.blog.slug)
-      .replace(/{{imageUrl}}/, HOST + '/' + data.blog.image)
-      .replace(/{{unsubscribeLink}}/, HOST + '/unsubscribe?tid=' + signature)
+      .replace(/{{imageUrl}}/, HOST + data.blog.image)
+      .replace(/{{unsubscribeLink}}/, HOST + '/unsubscribe?tid=' + signature),
+    attachments: [
+      {
+        filename: 'blog.jpg',
+        path: './public' + data.blog.image, // lub dowolna lokalizacja lokalna
+        cid: 'image' // identyfikator użyty w src="cid:logo"
+      }
+    ]
   };
 
-  transporter.sendMail(mailOptions, (error, info) => { console.log(error, info, 'notifier') });
+  transporter.sendMail(mailOptions, (error, info) => { console.log(error, info.envelope.to, 'notifier') });
   return
 }
 const confirmMail = `
@@ -174,7 +180,7 @@ const newsMail = `<!DOCTYPE html>
       <h2 style="color: #222;">🆕 Nowy wpis na blogu: <span style="color: #0066cc;">{{title}}</span></h2>
 
       <a href="{{link}}" target="_blank" style="text-decoration: none;">
-        <img src="{{imageUrl}}" alt="Obrazek wpisu" style="width: 100%; object-fit: cover; border-radius: 6px; margin-top: 10px;" />
+        <img src="cid:image" alt="Obrazek wpisu" style="width: 100%; object-fit: cover; border-radius: 6px; margin-top: 10px;" />
       </a>
 
 

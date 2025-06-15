@@ -1,5 +1,6 @@
 const fs = require("fs");
 const newslatterFILE = 'common/newslatterList.txt';
+const SECRET = process.env.SECRET_FOR_MAIL;
 
 function createImageSlug(title) {
   const parts = title.toLowerCase().trim().split(".");
@@ -30,12 +31,10 @@ function saveTextFile(filename, content) {
     console.log(`Plik ${filename} zapisany.`);
 }
 
-const SECRET = 'twoj-sekretny-klucz'; // Trzymaj to w .env lub poza kodem źródłowym
-
 function generateConfirmationToken(email) {
   const data = `${email}|${Date.now()}`;
   const base64 = Buffer.from(data).toString('base64');
-  const signature = Buffer.from(base64 + SECRET).toString('base64').slice(0, 12); // prosty podpis
+  const signature = Buffer.from(base64 + SECRET).toString('base64').slice(0, 12);
   return `${base64}.${signature}`;
 }
 
