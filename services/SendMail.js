@@ -39,7 +39,6 @@ exports.sendConfirmMail = async (email, data) => {
 }
 exports.sendNewsMail = async (email, data) => {
   const signature = await helper.generateConfirmationToken(email)
-console.log(data.blog.image)
   let mailOptions = {
     from: EMAIL,
     to: email,
@@ -59,7 +58,7 @@ console.log(data.blog.image)
     ]
   };
 
-  transporter.sendMail(mailOptions, (error, info) => { console.log(error, info.envelope.to, 'notifier') });
+  transporter.sendMail(mailOptions, (error, info) => { console.log(error, info, 'notifier') });
   return
 }
 const confirmMail = `
