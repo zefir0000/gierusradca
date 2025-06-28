@@ -1,6 +1,6 @@
 var nodemailer = require('nodemailer');
 const helper = require('./helper')
-const EMAIL = process.env.MAIL
+const EMAIL = process.env.SEND_MAIL
 const HOST = process.env.HOST
 var transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
@@ -15,7 +15,7 @@ var transporter = nodemailer.createTransport({
 
 exports.sendCustomMail = async (title, message, email) => {
   let mailOptions = {
-    from: process.env.EMAIL,
+    from: process.env.SEND_EMAIL,
     to: email,
     subject: title,
     html: message
