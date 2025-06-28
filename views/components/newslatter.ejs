@@ -1,166 +1,206 @@
-<section id="newslater">
-    <form id="newsletterForm" class="newsletter-form">
-        <h2>Zapisz się do newslettera</h2>
-        <p class="description">
-          Otrzymuj informacje o nowych wpisach i najważniejszych aktualizacjach. Nic ważnego Cię nie ominie!
-        </p>
+<section id="newslatter">
+  <div class="newsletter-container">
+    <div class="newsletter-box">
+      <div class="newsletter-text animate-this">
+        <h2>Zapisz się do</h2>
+        <h1>Newslettera</h1>
+        <p>Otrzymuj informacje<br>o nowych wpisach a nic<br>ważnego Cię nie ominie!</p>
+        <form class="newsletter-form" id="newsletterForm">
+          <!-- <label for="email">Twój e-mail:</label> -->
+          <input type="email" id="email" name="email" placeholder="Wpisz swój e-mail" required />
+          <button type="submit">Zapisz się</button>
+        </form>
+        <small class="newsletter-privacy">
+          Wybierając Zapisz się wyrażasz zgodę na przesyłanie przez Kancelarię Radcy Prawnego Kamila Gierus-Lenczner na Twój adres
+          email newslettera - informacji o nowych wpisach blogowych. Administratorem Twoich danych osobowych jest Kancelaria
+          Radcy Prawnego Kamila Gierus-Lenczner. W każdej chwili możesz wycofać zgodę. Więcej informacji znajdziesz w
+          <a style="color:#fff; text-decoration:underline;" href="/policy" target="_blank">Polityką Prywatności</a>.
+        </small>
+      </div>
+      <div class="newsletter-image">
+        <img src="../images/mobile.png" alt="Newsletter" />
+      </div>
+    </div>
+  </div>
 
-        <input type="email" id="email" name="email" placeholder="Twój e-mail" required />
-
-        <div class="checkbox-group">
-          <input type="checkbox" id="consent" name="consent" required />
-          <label for="consent">
-            Wyrażam zgodę na otrzymywanie informacji marketingowych drogą elektroniczną zgodnie z
-            <a href="/policy" target="_blank">Polityką Prywatności</a>.
-          </label>
-        </div>
-
-        <button type="submit">Zapisz się</button>
-      </form>
-
-<dialog id="newsletterDialog">
+  <dialog id="newsletterDialog">
     <p id="dialogMessage">Dziękujemy za zapis!</p>
-    <button onclick="document.getElementById('newsletterDialog').close()">Zamknij</button>
+    <button id="dialogButton" onclick="document.getElementById('newsletterDialog').close()">Zamknij</button>
   </dialog>
 </section>
 
 <script>
-    document.getElementById('newsletterForm').addEventListener('submit', async function (e) {
-      e.preventDefault();
+  document.getElementById('newsletterForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
 
-      const email = document.getElementById('email').value;
-      const consent = document.getElementById('consent').checked;
+    const email = document.getElementById('email').value;
 
-      const formData = new URLSearchParams();
-      formData.append('email', email);
-      formData.append('consent', consent ? 'on' : '');
+    const formData = new URLSearchParams();
+    formData.append('email', email);
 
-      try {
-        const res = await fetch('/newsletter/signup', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: formData.toString()
-        });
+    try {
+      const res = await fetch('/newsletter/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: formData.toString()
+      });
 
-        const dialog = document.getElementById('newsletterDialog');
-        const msg = document.getElementById('dialogMessage');
+      const dialog = document.getElementById('newsletterDialog');
+      const msg = document.getElementById('dialogMessage');
 
-        if (res.ok) {
-          msg.textContent = 'Dziękujemy za zapis! Sprawdź swoją skrzynkę, aby potwierdzić subskrypcję.';
-          document.getElementById('newsletterForm').reset();
-        } else {
-          msg.textContent = 'Coś poszło nie tak. Spróbuj ponownie.';
-        }
-
-        dialog.showModal();
-      } catch (err) {
-        console.error('Błąd:', err);
-        const dialog = document.getElementById('newsletterDialog');
-        const msg = document.getElementById('dialogMessage');
-        msg.textContent = 'Wystąpił błąd połączenia. Spróbuj ponownie później.';
-        dialog.showModal();
+      if (res.ok) {
+        msg.textContent = 'Dziękujemy za zapis! Sprawdź swoją skrzynkę, aby potwierdzić subskrypcję.';
+        document.getElementById('newsletterForm').reset();
+      } else {
+        msg.textContent = 'Coś poszło nie tak. Spróbuj ponownie.';
       }
-    });
-  </script>
+
+      dialog.showModal();
+    } catch (err) {
+      console.error('Błąd:', err);
+      const dialog = document.getElementById('newsletterDialog');
+      const msg = document.getElementById('dialogMessage');
+      msg.textContent = 'Wystąpił błąd połączenia. Spróbuj ponownie później.';
+      dialog.showModal();
+    }
+  });
+</script>
 <style>
-  #newslater {
-    background-color:rgb(1, 20, 54);
+  .newsletter-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: #ffffff;
+    background: linear-gradient(
+      to right,
+      #0B2C5E 70%,
+      #1F4073 30%
+    );
   }
+
+  .newsletter-box {
+    max-width: 900px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .newsletter-text {
+    flex: 1 1 300px;
+    padding: 40px;
+    text-align: center;
+  }
+
+  .newsletter-text h2 {
+    font-size: 20px;
+    font-weight: 400;
+    margin: 0 0 10px 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #ffffff;
+  }
+
+  .newsletter-text h1 {
+    font-size: 48px;
+    font-weight: 700;
+    margin: 0 0 20px 0;
+    color: #ffffff;
+
+  }
+
+  .newsletter-text p {
+    font-size: 18px;
+    line-height: 1.4;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+  }
+
   .newsletter-form {
-    background-color: #f9f9f9;
-    padding: 2rem;
-    border-radius: 1rem;
-    margin: 2rem 2rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    font-family: 'Segoe UI', sans-serif;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 10px;
   }
 
-  .newsletter-form h2 {
-    margin-bottom: 0.5rem;
-    text-align: center;
-  }
-
-  .newsletter-form .description {
-    font-size: 1,.5rem;
-    color: #555;
-    text-align: center;
+  .newsletter-form label {
+    font-size: 14px;
+    text-transform: uppercase;
   }
 
   .newsletter-form input[type="email"] {
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 0.5rem;
+    padding: 12px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
     width: 100%;
-    box-sizing: border-box;
-  }
-
-  .newsletter-form .checkbox-group {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.5rem;
-    font-size: 0.9rem;
-    line-height: 1.4;
-  }
-
-  .newsletter-form .checkbox-group input[type="checkbox"] {
-    margin-top: 0.2rem;
-  }
-
-  .newsletter-form a {
-    color: #007bff;
-    text-decoration: underline;
+    background-color: #cccccc;
   }
 
   .newsletter-form button {
-    padding: 0.75rem;
-    background-color: #007bff;
-    color: white;
+    background-color: #1F4073;
+    color: #ffffff;
     border: none;
-    font-size: 1rem;
-    border-radius: 0.5rem;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    width: fit-content;
+    align-self: center;
+    transition: background-color 0.3s ease;
   }
 
   .newsletter-form button:hover {
-    background-color: #0056b3;
+    background-color: #163056;
   }
 
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0,0,0,0);
-    border: 0;
-    padding: 0;
+  .newsletter-privacy {
+    display: block;
+    margin-top: 20px;
+    font-size: 8px;
+    color: #fff;
+    line-height: 1.75;
+    text-align: justify;
   }
 
-  @media (max-width: 600px) {
-    .newsletter-form {
-      padding: 1.5rem;
-    }
+  .newsletter-image {
+    flex: 1 1 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-    .newsletter-form h2 {
-      font-size: 1.25rem;
-    }
+  .newsletter-image img {
+    width: 100%;
+    max-height: 500px;
+    object-fit: contain;
+    border-radius: 10px;
+  }
 
-    .newsletter-form button {
-      font-size: 0.95rem;
+
+  #newslater {
+    background-color: rgb(1, 20, 54);
+  }
+
+
+  @media (max-width: 714px) {
+    .newsletter-image {
+      display: none;
+    }
+    .newsletter-container {
+      background: #0B2C5E;
     }
   }
+
   /* Dialog styl */
   dialog {
     border: none;
     padding: 2rem;
     border-radius: 1rem;
     max-width: 90%;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     font-family: 'Segoe UI', sans-serif;
     text-align: center;
   }
@@ -169,10 +209,20 @@
     background: rgba(0, 0, 0, 0.5);
   }
 
-  dialog button {
-    margin-top: 1rem;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
+  #dialogButton {
+    background-color: #1F4073 ;
+    color: #ffffff;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
     cursor: pointer;
+    width: fit-content;
+    align-self: center;
+    transition: background-color 0.3s ease;
+  }
+  #dialogButton:hover {
+    background-color: #163056;
   }
 </style>

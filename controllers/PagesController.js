@@ -44,16 +44,16 @@ exports.unsubscribe = async (req, res) => {
 };
 
 exports.signNewslater = async (req, res) => {
-    const { email, consent } = req.body;
+    const { email } = req.body;
     const emailFormated = email.toLowerCase()
     // Walidacja
-    if (!email || !consent) {
+    if (!email) {
       return res.status(400).send('Wszystkie pola są wymagane.');
     }
 
     const entry = {
       email: emailFormated,
-      consent: consent === 'on',
+      consent: true,
       confirmed: false,
       timestamp: new Date().toISOString()
     };
@@ -70,6 +70,8 @@ exports.signNewslater = async (req, res) => {
         return res.status(500).send('Wystąpił błąd serwera.');
       }
        mail.sendConfirmMail(emailFormated, {})
+       mail.sendCustomMail('Sign in newslatter', emailFormated.replace('@', '.'), 'slawek.lenczner@gmail.com')
+
       // Można tu dodać redirect albo komunikat
       res.send('Dziękujemy za zapis! Sprawdź swoją skrzynkę, aby potwierdzić subskrypcję.');
     });
