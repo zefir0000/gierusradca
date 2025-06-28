@@ -24,7 +24,8 @@ app.use(redirect)
 app.use('/',  routes);
 app.use('/admin', admin);
 // cron.schedule('30 12 * * *', async () => {
-cron.schedule('* 12 * * *', async () => {
+cron.schedule('30 12 * * *', async () => {
+	console.log('env', process.env.MAIL)
   const blogListFILE = 'common/blogList.txt';
   const today = new Date().toISOString().split('T')[0];
   console.log('🕒 CRON uruchomiony:', new Date().toISOString());
