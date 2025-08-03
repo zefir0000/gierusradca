@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!--[if IE 8 ]><html class="no-js oldie ie8" lang="pl"> <![endif]-->
+<!--[if IE 9 ]><html class="no-js oldie ie9" lang="pl"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="no-js" lang="pl">
+<!--<![endif]-->
+<%- include('../views/components/head.ejs', { title: "Kancelaria Radcy Prawnego Kamila Gierus-Lenczner" }); -%>
+	<head>
+		<link rel="canonical" href="https://gierusradca.pl/blog" />
+	</head>
+
+	<body id="top">
+
+		<%- include('../../views/components/headerBlog.ejs'); -%>
+
+		<section id="blog-page">
+			<div style="width: 100%; height: 150px; background-color:rgb(1, 20, 54);"></div>
+
+			<%- include('../views/components/blogList.ejs', { filters: include('../views/components/blogFilters.ejs') }) %>
+		</section>
+
+		<%- include('../views/components/newsletter.ejs'); -%>
+
+		<%- include('../views/components/contact.ejs'); -%>
+
+		<div id="preloader">
+			<div id="loader"></div>
+		</div>
+
+		<!-- Java Script
+================================================== -->
+		<script src="js/jquery-2.1.3.min.js"></script>
+		<script src="js/plugins.js"></script>
+		<script src="js/main1-0.js"></script>
+
+	</body>
+
+</html>

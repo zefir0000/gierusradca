@@ -4,6 +4,7 @@ const router = express.Router();
 const PagesController = require('../controllers/PagesController');
 
 router.get('/', PagesController.home);
+router.get('/blog', PagesController.blogList);
 router.get('/blog/:slug', PagesController.blog);
 router.get('/policy/', PagesController.policy);
 router.post('/newsletter/signup', PagesController.signNewslater)

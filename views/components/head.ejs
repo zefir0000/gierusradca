@@ -1,11 +1,11 @@
-
 <head>
 
 	<!--- basic page needs
    ================================================== -->
 	<meta charset="utf-8">
-	<title>          <%= title %>
-  </title>
+	<title>
+		<%= title %>
+	</title>
 	<meta name="description" content="Kancelaria Radcy Prawnego Kamila Gierus-Lenczner procesy sądowe, doradztwo prawne, opinie prawne, stała i&nbsp;doraźna obsługa prawna osób fizycznych oraz podmiotów prawa handlowego, windykacja wierzytelności.">
 	<meta name="author" content="GierusRadca.pl">
 
@@ -33,6 +33,19 @@
 		gtag('js', new Date());
 
 		gtag('config', 'G-9BY8CCG0XW');
+		gtag('config', 'AW-17408346287');
+	</script>
+	<!-- Event snippet for Kontakt conversion page In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
+	<script>
+		function gtag_report_conversion(url) {
+			var callback = function () {
+				if (typeof (url) != 'undefined') {
+					window.location = url;
+				}
+			};
+			gtag('event', 'conversion', { 'send_to': 'AW-17408346287/cTkDCLPJjP0aEK-R-exA', 'event_callback': callback });
+			return false;
+		}
 	</script>
 	<!-- Cookies modal  -->
 	<script>

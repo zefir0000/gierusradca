@@ -1,0 +1,46 @@
+<!-- Filtry bloga -->
+<div style="max-width: 1000px; margin: 0 auto; margin-top: -50px; padding: 2rem; ">
+		<form class="blog-filters" style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; width: 100%;">
+      <input
+        type="text"
+        id="searchInput"
+        name="q"
+        placeholder="Szukaj artykułu..."
+        value="<%= typeof q !== 'undefined' ? q : '' %>"
+        style="padding: 10px; width: 100%; max-width: 300px; margin-right: 10px; margin-bottom: 10px;"
+      />
+
+      <select name="category" id="categorySelect" style="padding: 10px; margin-right: 10px; margin-bottom: 10px;">
+        <option value="">Wszystkie kategorie</option>
+        <% categories.forEach(function(cat) { %>
+          <option value="<%= cat %>" <%= category === cat ? 'selected' : '' %>><%= cat %></option>
+        <% }); %>
+      </select>
+
+      <select name="sort" id="sortSelect" style="padding: 10px; margin-right: 10px; margin-bottom: 10px;">
+        <option value="best" <%= sort === 'best' ? 'selected' : '' %>>Najlepiej dopasowane</option>
+        <option value="newest" <%= sort === 'newest' ? 'selected' : '' %>>Najnowsze</option>
+        <option value="oldest" <%= sort === 'oldest' ? 'selected' : '' %>>Najstarsze</option>
+      </select>
+
+      <button type="button" onclick="applyBlogFilters()" style="padding: 10px 20px; background-color: #011436; color: white; border: none; border-radius: 6px;">
+        Filtruj
+      </button>
+    </form>
+  </div>
+  <script>
+      function applyBlogFilters() {
+        const search = document.getElementById('searchInput').value.trim();
+        const category = document.getElementById('categorySelect').value;
+        const sort = document.getElementById('sortSelect').value;
+
+        const params = new URLSearchParams();
+
+        if (search) params.set('q', search);
+        if (category) params.set('category', category);
+        if (sort) params.set('sort', sort);
+
+        const url = `/blog?${params.toString()}`;
+        window.location.href = url;
+      }
+    </script>

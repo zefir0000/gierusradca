@@ -20,7 +20,15 @@
 				<!-- <h5 class="animate-this">Zadzwoń</h5> -->
 
 				<p class="animate-this" style="color: #fff; font-size: 18px">
-					<a href="tel:505175334" style="color: #fff; font-size: 18px" onclick="gtag('event', 'click_phone', { 'event_category': 'Kontakt', 'event_label': 'Kliknięcie telefon' });">
+					<a href="tel:505175334" style="color: #fff; font-size: 18px"
+						onclick="
+							gtag('event', 'click_phone', {
+								event_category: 'Kontakt',
+								event_label: 'Kliknięcie telefon'
+							});
+							return gtag_report_conversion('tel:505175334');
+						"
+					>
 					<img src="/images/ico/phone.png" style="width: 20px; margin: -8px 8px -4px 8px;"> 505 175 334<br>
 					</a>
 					<!-- Mobile: (+63) 555 0100<br> -->

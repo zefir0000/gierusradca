@@ -16,6 +16,8 @@
       </p>
     </div>
   </div> <!-- end row section-intro -->
+<!-- WSTRZYKNIĘTY FORMULARZ FILTRÓW -->
+<%- typeof filters !== 'undefined' ? filters : '' %>
 
   <div class="row portfolio-content">
     <div class="col-twelve">
@@ -40,7 +42,43 @@
         <% }); %>
 
       </div> <!-- end folio-wrap -->
+
     </div> <!-- end twelve -->
   </div> <!-- end portfolio-content -->
+  <% if (typeof list === 'undefined') { %>
+  <div style="width: 100%; text-align: center; margin-top: 2rem;">
+      <a href="/blog" class="see-more-button">ZOBACZ WIĘCEJ</a>
+    </div>
+    <% } %>
 
 </section> <!-- end portfolio -->
+
+
+<style>
+    .see-more-button {
+      font-family: "montserrat-bold", sans-serif;
+      display: inline-block;
+      padding: 12px 28px;
+      background-color: #0B2C5E; /* ciemny granat */
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .see-more-button:hover {
+      background-color: rgb(30, 60, 92); /* jaśniejszy odcień */
+      transform: translateY(-2px);
+    }
+    .see-more-button:visited {
+      color: white;
+    }
+
+    .see-more-button:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+  </style>
