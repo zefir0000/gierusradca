@@ -33,6 +33,8 @@
           <option value="PRAWO ADMINISTRACYJNE" <%= section === 'PRAWO ADMINISTRACYJNE' ? 'selected' : '' %>>PRAWO ADMINISTRACYJNE</option>
           <option value="ODSZKODOWANIA" <%= section === 'ODSZKODOWANIA' ? 'selected' : '' %>>ODSZKODOWANIA</option>
           <option value="PRAWO HANDLOWE" <%= section === 'PRAWO HANDLOWE' ? 'selected' : '' %>>PRAWO HANDLOWE</option>
+          <option value="PRAWO KARNE" <%= item.section === 'PRAWO KARNE' ? 'selected' : '' %>>PRAWO KARNE</option>
+
         </select>
         <label for="title">Tytuł strony:</label>
         <input type="text" id="title" name="title" value="<%= title %>" required style="width: 99%; padding: 10px 0px" />
