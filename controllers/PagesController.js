@@ -54,7 +54,7 @@ exports.blogList = async (req, res) => {
   // Zbierz unikalne kategorie (np. do selecta)
   const allData = JSON.parse(data).filter(x => x.active && new Date(x.publishDate) < new Date());
   const categories = [...new Set(allData.map(post => post.section))];
-
+ console.log(allData, categories, blogList, 'data')
   res.render('blog', {
     blogList,
     list: true,      // pokaże przycisk "ZOBACZ WIĘCEJ"
