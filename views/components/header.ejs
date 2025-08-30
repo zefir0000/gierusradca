@@ -1,26 +1,69 @@
 <header>
+  <div class="header-inner">
+    <div class="logo">
+      <a href="/"><img src="images/logo2.png" alt="Logo" /></a>
+    </div>
+    <div class="home-content-tablecell" style="display: contents; ">
+      <ul class="home-section-links" style="margin-left: 10%;">
+        <li class="animate-intro"> <a href="#about" class="smoothscroll menu-link">O Kancelarii</a></li>
+        <li class="animate-intro"> <a href="#zares-uslug" class="smoothscroll menu-link">Zakres Usług</a></li>
+        <li class="animate-intro"> <a href="#blog" class="smoothscroll menu-link">Blog</a></li>
+        <!-- <li class="animate-intro"> <a href="#contact" class="smoothscroll menu-link" onclick="gtag('event', 'click_contact', { 'event_category': 'Kontakt', 'event_label': 'Kliknięcie w kontakt' });">Kontakt</a></li> -->
+        <!-- <li class="animate-intro">Zapisz się <a href="#newsletter" class="smoothscroll">Newsletter</a></li> -->
 
-  <a id="header-menu-trigger" href="#0">
-    <span class="header-menu-text">Menu</span>
-    <span class="header-menu-icon"></span>
-  </a>
+      </ul>
+    </div>
+    <a id="header-menu-trigger" href="#0" style="z-index:1; cursor: pointer;">
+      <span class="header-menu-text">&#9776;</span>
 
-  <nav id="menu-nav-wrap">
+    </a>
 
-    <a href="#0" class="close-button" title="close"><span>Zamknij</span></a>
+    <span id="header-menu-trigger2">
+      <span class="header-menu-text">
+        <a href="#contact" class="smoothscroll" style="font-size: 12px; color: #fff;" onclick="gtag('event', 'click_contact', { 'event_category': 'Kontakt', 'event_label': 'Kliknięcie w kontakt' });">Kontakt</a></span>
+    </span>
+
+    <nav id="menu-nav-wrap">
+
+      <a href="#0" class="close-button" title="close"><span>Zamknij</span></a>
 
 
-    <ul class="nav-list">
-      <li class="current"><a href="/" title="">Strona główna</a></li>
-      <li><a class="smoothscroll" href="/#about" title="">O Kancelarii</a></li>
-      <li><a href="/#zares-uslug" title="">Zakres usług</a></li>
-      <li><a class="smoothscroll" href="/#blog" title="">Blog</a></li>
+      <ul class="nav-list">
+        <li class="current"><a href="/" title="">Strona główna</a></li>
+        <li><a class="smoothscroll" href="/#about" title="">O Kancelarii</a></li>
+        <li><a href="/#zares-uslug" title="">Zakres usług</a></li>
+        <li><a class="smoothscroll" href="/#blog" title="">Blog</a></li>
 
-      <li><a class="smoothscroll" href="/#contact" title="" onclick="gtag('event', 'click_contact', { 'event_category': 'Kontakt', 'event_label': 'Kliknięcie w kontakt' });">Kontakt</a></li>
-      <li><a class="smoothscroll" href="/#newsletter" title="">Newsletter</a></li>
+        <li><a class="smoothscroll" href="/#contact" title="" onclick="gtag('event', 'click_contact', { 'event_category': 'Kontakt', 'event_label': 'Kliknięcie w kontakt' });">Kontakt</a></li>
+        <li><a class="smoothscroll" href="/#newsletter" title="">Newsletter</a></li>
 
-    </ul>
+      </ul>
 
-  </nav> <!-- end #menu-nav-wrap -->
-
+    </nav> <!-- end #menu-nav-wrap -->
+  </div>
 </header> <!-- end header -->
+<script src="js/main1-0.js"></script>
+
+<style>
+  .menu-link {
+    font-family: "librebaskerville-regular", serif;
+    font-size: 1.8rem;
+    text-transform: none;
+    letter-spacing: 0;
+    color: #FFFFFF;
+    margin-left: .3rem;
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.8rem 2rem;
+  }
+
+  .logo img {
+    height: 60px;
+    margin-top: 15px;
+    display: none;
+  }
+</style>

@@ -1384,7 +1384,24 @@ header .header-logo a {
  * menu trigger - (_layout.css)
  * ------------------------------------------------------------------- */
 #header-menu-trigger {
-	display: block;
+	position: fixed;
+	right: 15px;
+	top: -50px;
+	height: 42px;
+	width: 42px;
+	line-height: 42px;
+	font-family: "montserrat-regular", sans-serif;
+	font-size: 1.4rem;
+	text-transform: uppercase;
+	letter-spacing: .2rem;
+	color: rgba(255, 255, 255, 0.5);
+	-moz-transition: all 0.3s ease-in-out;
+	-o-transition: all 0.3s ease-in-out;
+	-webkit-transition: all 0.3s ease-in-out;
+	-ms-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
+}
+#header-menu-trigger2 {
 	position: fixed;
 	right: 26px;
 	top: 30px;
@@ -1404,11 +1421,11 @@ header .header-logo a {
 }
 
 #header-menu-trigger.opaque {
-	background-color: #000000;
+top: 30px;
 }
 
-#header-menu-trigger.opaque .header-menu-text {
-	background-color: #000000;
+#header-menu-trigger2.opaque .header-menu-text {
+	background-color: orange;
 }
 
 #header-menu-trigger:hover,
@@ -1416,14 +1433,15 @@ header .header-logo a {
 	color: #FFFFFF;
 }
 
-#header-menu-trigger .header-menu-text {
-	display: block;
+#header-menu-trigger2 .header-menu-text {
 	position: absolute;
 	top: 0;
-	left: -75px;
-	width: 75px;
+	left: -100px;
+	width: 95px;
 	text-align: center;
-	background-color: transparent;
+	border-radius: 8px;
+	background-color: orange;
+	font-family: "montserrat-regular", sans-serif;
 	-moz-transition: all 0.3s ease-in-out;
 	-o-transition: all 0.3s ease-in-out;
 	-webkit-transition: all 0.3s ease-in-out;
@@ -1431,13 +1449,12 @@ header .header-logo a {
 	transition: all 0.3s ease-in-out;
 }
 
-#header-menu-trigger .header-menu-icon {
+#header-menu-trigger .header-menu-text {
 	display: block;
-	height: 2px;
-	width: 24px;
-	background-color: #FFFFFF;
+	font-size: 4rem;
+	color: orange;
 	position: absolute;
-	top: 50%;
+	top: 0;
 	right: 9px;
 	margin-top: -2px;
 }
@@ -1614,6 +1631,9 @@ header .header-logo a {
  * responsive:
  * header section
  * ------------------------------------------------------------------- */
+ #header-menu-trigger {
+	display: inline;
+}
 @media only screen and (max-width:768px) {
 	header .header-logo {
 		top: 27px;
@@ -1624,12 +1644,21 @@ header .header-logo a {
 		height: 84px;
 		background-size: contain;
 	}
+	#header-menu-trigger .header-menu-icon {
+		display: inline;
+	}
+	/* #header-menu-trigger2 .header-menu-text {
+		display: none;
+		background-color: #000;
+
+	} */
 
 }
 
 @media only screen and (max-width:400px) {
-	#header-menu-trigger .header-menu-text {
-		display: none;
+
+	.header-menu-icon {
+		display: block;
 	}
 
 }
@@ -1713,7 +1742,7 @@ header .header-logo a {
 .home-content-tablecell .home-section-links {
 	display: inline-block;
 	list-style: none;
-	margin: 4.8rem 0 0 0;
+	margin: 3.2rem 180px 0 10%
 }
 
 .home-content-tablecell .home-section-links li {
@@ -1816,6 +1845,10 @@ header .header-logo a {
 }
 
 @media only screen and (max-width:768px) {
+	#header-menu-trigger {
+
+		top: 30px;
+	}
 	.logo-custom {
 		width: 80%;
 
@@ -1851,6 +1884,7 @@ header .header-logo a {
 	}
 
 	.home-content-tablecell .home-section-links {
+		display: none;
 		margin: 4.2rem 0 0 0;
 	}
 
@@ -1957,7 +1991,7 @@ header .header-logo a {
 }
 
 #about h1 {
-	font-family: "librebaskerville-bold", serif;
+	/* font-family: "librebaskerville-bold", serif; */
 	font-size: 3.3rem;
 	line-height: 1.455;
 }
@@ -2033,7 +2067,7 @@ header .header-logo a {
 
 .about-services ul.services li {
 	padding-left: 0;
-	margin-bottom: .6rem;
+	margin-bottom: 3.6rem;
 	position: relative;
 }
 
@@ -2424,7 +2458,7 @@ header .header-logo a {
 #credentials .timeline-header h3 {
 	font-size: 2.4rem;
 	line-height: 1.25;
-	margin-bottom: 0;
+	margin-bottom: 3.5rem;
 }
 
 /* -------------------------------------------------------------------

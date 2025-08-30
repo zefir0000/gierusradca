@@ -10,5 +10,6 @@ router.get('/policy/', PagesController.policy);
 router.post('/newsletter/signup', PagesController.signNewslater)
 router.get('/confirm-mail', PagesController.confirmMail)
 router.get('/unsubscribe', PagesController.unsubscribe)
+router.get('/o-kancelarii', PagesController.home);
 
 module.exports = router;
