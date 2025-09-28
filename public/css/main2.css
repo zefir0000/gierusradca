@@ -148,6 +148,16 @@ h1, .h01 {
 	line-height: 1.35;
 	letter-spacing: -.1rem;
 }
+.glass {
+  background: rgba(255, 255, 255, 0.1); /* półprzezroczyste białe */
+  backdrop-filter: blur(10px);          /* rozmycie tła */
+  -webkit-backdrop-filter: blur(10px);  /* dla Safari */
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  color: white;
+}
 
 @media only screen and (max-width:600px) {
 	h1, .h01 {
@@ -1971,11 +1981,11 @@ header .header-logo a {
 	width: 50%;
 	background-image: url(../images/profile-bg.jpg);
 	background-repeat: no-repeat;
-	background-position: right;
+	background-position: center;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	background-size: cover;
-	opacity: .35;
+	opacity: 1;
 }
 
 
@@ -2325,7 +2335,7 @@ header .header-logo a {
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	background-size: cover;
-	opacity: .35;
+	opacity: .6;
 }
 
 
