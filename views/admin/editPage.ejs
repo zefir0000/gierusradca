@@ -17,12 +17,13 @@
       <h1>
         <%= title %>
       </h1>
+      <div id="errorBox" class="error-box" style="display:none;"></div>
       <form id="uploadForm" enctype="multipart/form-data">
         <input type="file" id="fileInput" name="image" accept="image/*">
         <br>
         <button type="submit">Upload Image</button>
       </form>
-      <form action="/admin/update-page" method="post" style="display: block; width: 90%" id="uploadForm" >
+      <form action="/admin/update-page" method="post" style="display: block; width: 90%" id="updateForm" >
         <label for="sectionSelect">Wybierz sekcję:</label><%= section %>
         <select id="sectionSelect" name="section" value="<%= section %>" required>
           <option value="PRAWO BANKOWE" <%= section === 'PRAWO BANKOWE' ? 'selected' : '' %>>PRAWO BANKOWE</option>
@@ -51,13 +52,22 @@
         <button type="button" id="toggleTextarea">Show original HTML</button>
         <textarea id="content" name="content" rows="10" required style="display: none;"></textarea>
 
+        <label for="publishDate">Data publikacji:</label>
+        <input type="date" id="publishDate" name="publishDate" value="<%= publishDate %>" style="width: 200px; padding: 10px 0px" />
         <br><br>
-        <button type="submit">Aktualizuj Stronę</button>
+        <button type="submit" id="updateSubmitBtn">Aktualizuj Stronę</button>
       </form>
     </div>
-</body>
+  </body>
 
 </html>
+<!-- Loader overlay -->
+<div id="loaderOverlay" aria-live="polite" aria-busy="true" style="display:none;">
+  <div class="loader-box">
+    <div class="spinner"></div>
+    <div class="loader-text">Trwa aktualizowanie strony...</div>
+  </div>
+</div>
 <script src="/js/quill.js"></script>
 <script src="/js/quill-config.js"></script>
 
@@ -101,6 +111,57 @@
     // Uzupełniamy pole tekstowe
     document.getElementById("imagePath").value = data.filename;
   });
+
+  // Handle update form submit with loader + delayed redirect
+  document.getElementById('updateForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    // ensure textarea has latest HTML
+    document.getElementById('content').value = quill.root.innerHTML;
+
+    const overlay = document.getElementById('loaderOverlay');
+    const btn = document.getElementById('updateSubmitBtn');
+    const errorBox = document.getElementById('errorBox');
+    if (errorBox) { errorBox.style.display = 'none'; errorBox.textContent = ''; }
+    if (overlay) overlay.style.display = 'flex';
+    if (btn) { btn.disabled = true; btn.textContent = 'Przetwarzanie...'; }
+
+    try {
+      const payload = {
+        section: document.getElementById('sectionSelect').value,
+        title: document.getElementById('title').value,
+        slug: document.getElementById('slug').value,
+        image: document.getElementById('imagePath').value,
+        content: document.getElementById('content').value,
+        publishDate: document.getElementById('publishDate')?.value || ''
+      };
+      const resp = await fetch('/admin/update-page', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (!resp.ok) {
+        let details = '';
+        try {
+          const errData = await resp.json();
+          details = errData.error || errData.details || '';
+        } catch {}
+        throw new Error(details || `HTTP ${resp.status}`);
+      }
+      const result = await resp.json();
+      if (result.redirectUrl) {
+        setTimeout(() => { window.location.href = result.redirectUrl; }, 2000);
+      } else {
+        if (overlay) overlay.style.display = 'none';
+        if (btn) { btn.disabled = false; btn.textContent = 'Aktualizuj Stronę'; }
+        if (errorBox) { errorBox.style.display = 'block'; errorBox.textContent = 'Zaktualizowano stronę.'; errorBox.classList.add('ok'); }
+      }
+    } catch (err) {
+      console.error('Błąd aktualizacji:', err);
+      if (overlay) overlay.style.display = 'none';
+      if (btn) { btn.disabled = false; btn.textContent = 'Aktualizuj Stronę'; }
+      if (errorBox) { errorBox.style.display = 'block'; errorBox.textContent = 'Błąd: ' + (err.message || 'Wystąpił błąd podczas aktualizacji.'); errorBox.classList.remove('ok'); }
+    }
+  });
 </script>
 
 <style>
@@ -139,4 +200,16 @@
     background-color: #f5f5f5;
     cursor: pointer;
   }
+  .error-box { margin: 10px 0; padding: 12px; border-radius: 8px; background: #fff3f3; color: #7a0b0b; border: 1px solid #f3c2c2; }
+  .error-box.ok { background: #f0fff3; color: #0b5e2c; border-color: #b6ebc5; }
+  /* Loader overlay styles */
+  #loaderOverlay {
+    position: fixed; inset: 0; background: rgba(255,255,255,0.85);
+    display: none; align-items: center; justify-content: center; z-index: 9999;
+  }
+  .loader-box { display: flex; flex-direction: column; align-items: center; gap: 12px; color: #012;
+    padding: 24px 28px; background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+  .spinner { width: 36px; height: 36px; border: 4px solid #e5e7eb; border-top-color: #1f73b7; border-radius: 50%; animation: spin 1s linear infinite; }
+  .loader-text { font-weight: 600; color: #0b2a4a; }
+  @keyframes spin { to { transform: rotate(360deg); } }
 </style>

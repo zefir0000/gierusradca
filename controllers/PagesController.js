@@ -80,12 +80,11 @@ exports.blog = async (req, res) => {
 
   const blogList = blogListAll.filter(x => x.active).filter(d => new Date(d.publishDate) < new Date()).slice(0, 6);
   const post = blogListAll.find(post => post.slug == req.params.slug);
-  if (post) {
-    post.publishDate = helper.formatDate(post.publishDate);
-  } else {
-    post.publishDate = ''
+  if (!post) {
+    return res.status(404).render('error', { message: 'Wpisu nie znleziono', status: 404 });
   }
-  res.render('blog/'+req.params.slug.replace('.html', ''), { blogList, post });
+  post.publishDate = helper.formatDate(post.publishDate);
+  return res.render('blog/'+req.params.slug.replace('.html', ''), { blogList, post });
 };
 
 exports.confirmMail = async (req, res) => {

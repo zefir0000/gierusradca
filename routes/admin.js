@@ -19,7 +19,7 @@ admin.post("/page/image", upload.single("image"), (req, res) => {
 });
 admin.get('/new-page/', auth, AdminController.newPage);
 admin.get('/manage-blog/', auth, AdminController.manageBlog);
-admin.get('/edit-page/:slug', AdminController.editPage);
+admin.get('/edit-page/:slug', auth, AdminController.editPage);
 
 admin.post('/update/', auth, AdminController.update);
 admin.post('/page/', upload.single("image"), AdminController.addPage);

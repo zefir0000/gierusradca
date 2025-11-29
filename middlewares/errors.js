@@ -11,8 +11,13 @@ exports.catchAsync = (fn) => {
 };
 
 exports.catchErrors = (err, req, res, next) => {
+    if (res.headersSent) {
+        return next(err);
+    }
     res.status(err.status || 500);
-    res.render('error', {
-        message: err.message
+    return res.render('error', {
+        message: err.message,
+        status: err.status || 500,
+        error: err
     });
 };

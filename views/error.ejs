@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Something went wrong</title>
+<title>Wystąpił błąd</title>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9BY8CCG0XW"></script>
 <script>
@@ -37,19 +37,57 @@
 }
 </style>
 
-<link type="text/css" rel="stylesheet" href="/assets/error_files/style.css">
-
 
 <meta name="robots" content="noindex, nofollow">
+<style>
+  :root {
+    --bg: #0b1020;
+    --card: #11172b;
+    --muted: #94a3b8;
+    --text: #e2e8f0;
+    --primary: #60a5fa;
+    --primary-strong: #3b82f6;
+    --accent: #22d3ee;
+  }
+  html, body { height: 100%; }
+  body { margin: 0; background: radial-gradient(1000px 600px at 10% -20%, rgba(59,130,246,.25), transparent 60%), radial-gradient(900px 500px at 110% 120%, rgba(34,211,238,.20), transparent 60%), var(--bg); color: var(--text); font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; }
+  .wrap { min-height: 100%; display: grid; place-items: center; padding: 24px; }
+  .card { width: 100%; max-width: 720px; background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); border: 1px solid rgba(148,163,184,.15); border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.04); overflow: hidden; }
+  .content { padding: 32px 28px; display: grid; gap: 18px; position: relative; }
+  .badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 999px; background: rgba(96,165,250,.15); color: var(--primary); border: 1px solid rgba(96,165,250,.35); font-weight: 600; font-size: 12px; letter-spacing: .4px; width: fit-content; }
+  .title { margin: 0; font-size: clamp(24px, 4vw, 34px); line-height: 1.2; font-weight: 800; text-shadow: 0 1px 0 rgba(0,0,0,.2); }
+  .desc { margin: 0; color: var(--muted); font-size: 15px; }
+  .msg { margin: 0; color: #fca5a5; background: rgba(239,68,68,.08); border: 1px solid rgba(239,68,68,.25); padding: 10px 12px; border-radius: 10px; font-size: 14px; }
+  .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 6px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 42px; padding: 0 16px; border-radius: 10px; border: 1px solid rgba(148,163,184,.25); color: var(--text); text-decoration: none; background: rgba(17,23,43,.7); transition: .2s ease; font-weight: 600; }
+  .btn:hover { transform: translateY(-1px); border-color: rgba(148,163,184,.4); }
+  .btn.primary { background: linear-gradient(180deg, var(--primary), var(--primary-strong)); border: none; color: white; box-shadow: 0 10px 20px rgba(59,130,246,.35), inset 0 1px 0 rgba(255,255,255,.35); }
+  .footer { padding: 16px 20px; background: rgba(148,163,184,.06); border-top: 1px solid rgba(148,163,184,.15); display: flex; align-items: center; justify-content: space-between; color: var(--muted); font-size: 12px; }
+  .code { font-variant-numeric: tabular-nums; color: var(--accent); font-weight: 700; }
+  .halo { position: absolute; inset: -40%; background: radial-gradient(closest-side, rgba(59,130,246,.07), transparent), radial-gradient(closest-side, rgba(34,211,238,.05), transparent); filter: blur(20px); pointer-events: none; z-index: 0; }
+  .content > * { position: relative; z-index: 1; }
+</style>
+</head>
+
 <body>
-<div id="notfound">
-<div class="notfound">
-<div class="notfound-404">
-</div>
-<h2>Oops! Coś poszło nie tak</h2>
-<p>Przepraszamy ale strona na którą patrzysz nie istnieje lub jest chwilowo niedostępna.</p>
-<a href="/">Wróć do strony głównej</a>
-</div>
-</div>
+  <div class="wrap">
+    <div class="card" role="alert" aria-live="polite">
+      <div class="content">
+        <div class="halo"></div>
+        <span class="badge">Błąd</span>
+        <h1 class="title">Oops! Coś poszło nie tak</h1>
+        <p class="desc">Przepraszamy, ale strona, którą próbujesz otworzyć, nie istnieje lub jest chwilowo niedostępna.</p>
+        <p class="msg"><%= typeof message !== 'undefined' && message ? message : 'Wystąpił nieoczekiwany błąd.' %></p>
+        <div class="actions">
+          <a class="btn primary" href="/">Wróć do strony głównej</a>
+          <a class="btn" href="javascript:history.back()">Wróć</a>
+        </div>
+      </div>
+      <div class="footer">
+        <span>Kancelaria Radcy Prawnego Kamil Gierus‑Lenczner</span>
+        <span>Kod błędu: <span class="code"><%= (typeof status !== 'undefined' && status) || (typeof error !== 'undefined' && error && error.status) || 500 %></span></span>
+      </div>
+    </div>
+  </div>
 
 </body></html>

@@ -4,22 +4,36 @@ exports.newPage = async (req, res) => {
   res.render('admin/addPage', { title: 'Nowa strona' });
 };
 
-exports.editPage = async (req, res) => {
-  const startTag = '<div style="padding-bottom:3rem">';
-  const endTag = '<span class="blog-data">';
+exports.editPage = async (req, res, next) => {
+  try {
+    const startTag = '<div style="padding-bottom:3rem">';
+    const endTag = '<span class="blog-data">';
 
-  const slug = req.params.slug;
+    const slug = req.params.slug;
+    const listRaw = await fs.readFileSync('common/blogList.txt', { encoding: 'utf8' });
+    const blogList = JSON.parse(listRaw);
+    const existing = blogList.find(post => post.slug === slug);
+    if (!existing) {
+      return res.status(404).render('error', { message: 'Nie znaleziono wpisu do edycji.', status: 404 });
+    }
 
-  const data = await fs.readFileSync(`views/blog/${slug}.ejs`, { encoding: 'utf8' });
-  const title = data.match(/title:\s*"([^"]+)"/)[1];
-  const section = data.match(/<h4[^>]*>(.*?)<\/h4>/i)[1];
-  const image = data.match(/<img[^>]+src=["'][^"']*\/([^\/"']+\.\w+)["']/i)[1];
-  const startIndex = data.indexOf(startTag);
+    const data = await fs.readFileSync(`views/blog/${slug}.ejs`, { encoding: 'utf8' });
+    const titleMatch = data.match(/title:\s*"([^"]+)"/);
+    const sectionMatch = data.match(/<h4[^>]*>(.*?)<\/h4>/i);
+    const title = titleMatch ? titleMatch[1] : existing.title || '';
+    const section = sectionMatch ? sectionMatch[1] : existing.section || '';
 
-  const endIndex = data.indexOf(endTag);
-  const content = startTag !== -1 && endIndex !== -1 ? data.slice(startIndex + startTag.length, endIndex) : data;
+    const publishDate = existing.publishDate || '';
+    const image = existing.image || '';
 
-  res.render('admin/editPage', { title, section, image, content, slug });
+    const startIndex = data.indexOf(startTag);
+    const endIndex = data.indexOf(endTag);
+    const content = startIndex !== -1 && endIndex !== -1 ? data.slice(startIndex + startTag.length, endIndex) : data;
+
+    return res.render('admin/editPage', { title, section, image, content, slug, publishDate });
+  } catch (err) {
+    return next(err);
+  }
 };
 
 exports.manageBlog = async (req, res) => {
@@ -41,29 +55,7 @@ exports.update = async (req, res) => {
     await helper.saveTextFile(`common/blogList.txt`, JSON.stringify(updatedPages));
     res.render('admin/success', { redirectUrl: '/admin/manage-blog' });
 };
-exports.addPage = async (req, res) => {
-  const slug = helper.createSlug(req.body.title)
-  const filePath = req.file.path.replace('public', '')
-  const modHeader = header
-    .replace(/:pageTitle/mg, req.body.title)
-    .replace(/:pageSection/mg, req.body.section)
 
-    .replace(/:pageCanonical/mg, slug)
-    .replace(/:filePathImage/mg, filePath);
-
-  await helper.saveTextFile(`views/blog/${slug}.ejs`, modHeader + req.body.content + footer);
-  const data = await fs.readFileSync('common/blogList.txt', { encoding: 'utf8' });
-  const blogList = JSON.parse(data);
-
-  blogList.push({
-    title: req.body.title,
-    section: req.body.section,
-    active: 'false',
-    slug: slug,
-    image: filePath,
-    publishDate: '2125-01-01'
-  })
-}
 exports.uploadImage = async (req, res) => {
   res.render('admin/addImage');
 
@@ -73,24 +65,37 @@ exports.addImage = async (req, res) => {
   res.json({ redirectUrl: filePath });
 }
 exports.updatePage = async (req, res) => {
-  const slug = req.body.slug;
-  const filePath = '/images/' + req.body.image;
-  const modHeader = header
-    .replace(/:pageTitle/mg, req.body.title)
-    .replace(/:pageSection/mg, req.body.section)
+  try {
+    const slug = req.body.slug;
+    if (!slug) {
+      return res.status(400).json({ error: 'Brak identyfikatora wpisu (slug).' });
+    }
 
-    .replace(/:pageCanonical/mg, slug)
-    .replace(/:filePathImage/mg, filePath);
+    const filePath = '/images/' + (req.body.image || '').toString();
+    const publishDate = (req.body.publishDate || '').toString();
+
+    const modHeader = header
+      .replace(/:pageTitle/mg, req.body.title || '')
+      .replace(/:pageSection/mg, req.body.section || '')
+      .replace(/:pageCanonical/mg, slug)
+      .replace(/:filePathImage/mg, filePath);
 
     const data = await fs.readFileSync('common/blogList.txt', { encoding: 'utf8' });
-
     const blogList = JSON.parse(data);
     const existing = blogList.find(post => post.slug === slug);
+    if (!existing) {
+      return res.status(404).json({ error: 'Nie znaleziono wpisu do aktualizacji.' });
+    }
     existing.image = filePath;
+    existing.publishDate = publishDate;
 
     await helper.saveTextFile(`common/blogList.txt`, JSON.stringify(blogList));
-  await helper.saveTextFile(`views/blog/${slug}.ejs`, modHeader + req.body.content + footer);
-  res.render('admin/success', { redirectUrl: '/admin/manage-blog' });
+    await helper.saveTextFile(`views/blog/${slug}.ejs`, modHeader + (req.body.content || '') + footer);
+    return res.json({ redirectUrl: '/admin/manage-blog' });
+  } catch (err) {
+    console.error('updatePage error:', err);
+    return res.status(500).json({ error: 'Błąd podczas zapisu zmian.', details: err.message });
+  }
 }
 
 exports.addPage = async (req, res) => {
@@ -103,8 +108,8 @@ exports.addPage = async (req, res) => {
 
     .replace(/:pageCanonical/mg, slug)
     .replace(/:filePathImage/mg, filePath);
-  const publicDate = ``
-  await helper.saveTextFile(`views/blog/${slug}.ejs`, modHeader + req.body.content + publicDate + footer);
+  const publishDate = req.body.publishDate
+  await helper.saveTextFile(`views/blog/${slug}.ejs`, modHeader + req.body.content + publishDate + footer);
   const data = await fs.readFileSync('common/blogList.txt', { encoding: 'utf8' });
   const blogList = JSON.parse(data);
 
@@ -115,6 +120,7 @@ exports.addPage = async (req, res) => {
       active: 'false',
       slug: slug,
       image: filePath,
+      publishDate: publishDate
   })
 
   await helper.saveTextFile(`common/blogList.txt`, JSON.stringify(blogList));

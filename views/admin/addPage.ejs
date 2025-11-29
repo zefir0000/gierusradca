@@ -38,9 +38,8 @@
           <option value="ODSZKODOWANIA">ODSZKODOWANIA</option>
           <option value="PRAWO HANDLOWE">PRAWO HANDLOWE</option>
           <option value="PRAWO KARNE">PRAWO KARNE</option>
-
-
       </select>
+
         <label for="title">Tytuł strony:</label>
         <input type="text" id="title" name="title" required style="width: 99%; padding: 10px 0px" />
 
@@ -55,11 +54,21 @@
         <button type="button" id="toggleTextarea">Show original HTML</button>
         <textarea id="content" name="content" rows="10" required style="display: none;"></textarea>
 
+        <label for="publishDate">Data publikacji:</label>
+        <input type="date" id="publishDate" name="publishDate" >
+
         <br><br>
-        <button type="submit">Dodaj Stronę</button>
+        <button type="submit" id="submitBtn">Dodaj Stronę</button>
       </form>
+      <!-- Loader overlay -->
+      <div id="loaderOverlay" aria-live="polite" aria-busy="true" style="display:none;">
+        <div class="loader-box">
+          <div class="spinner"></div>
+          <div class="loader-text">Trwa dodawanie strony...</div>
+        </div>
+      </div>
     </div>
-</body>
+  </body>
 
 </html>
 <script src="/js/quill.js"></script>
@@ -70,20 +79,33 @@
     event.preventDefault();
 
     const formData = new FormData(this);
+    // show loader and disable submit
+    const overlay = document.getElementById('loaderOverlay');
+    const submitBtn = document.getElementById('submitBtn');
+    if (overlay) overlay.style.display = 'flex';
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Przetwarzanie...'; }
 
     try {
         const response = await fetch("/admin/page", {
             method: "POST",
             body: formData
         });
-
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
         const result = await response.json();
-        alert("Plik i dane zostały wysłane: " + JSON.stringify(result));
         if (result.redirectUrl) {
-            window.location.href = result.redirectUrl;
+            setTimeout(() => { window.location.href = result.redirectUrl; }, 2000);
+        } else {
+            alert("Plik i dane zostały wysłane.");
+            if (overlay) overlay.style.display = 'none';
+            if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Dodaj Stronę'; }
         }
     } catch (error) {
         console.error("Błąd przesyłania:", error);
+        alert("Wystąpił błąd podczas dodawania strony. Spróbuj ponownie.");
+        if (overlay) overlay.style.display = 'none';
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Dodaj Stronę'; }
     }
 });
 
@@ -137,4 +159,22 @@
   background-color: #f5f5f5;
   cursor: pointer;
 }
+  /* Loader overlay styles */
+  #loaderOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(255,255,255,0.85);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+  .loader-box { display: flex; flex-direction: column; align-items: center; gap: 12px; color: #012;
+    padding: 24px 28px; background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+  .spinner {
+    width: 36px; height: 36px; border: 4px solid #e5e7eb; border-top-color: #1f73b7; border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  .loader-text { font-weight: 600; color: #0b2a4a; }
+  @keyframes spin { to { transform: rotate(360deg); } }
 </style>
